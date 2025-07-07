@@ -61,9 +61,9 @@ layout: default
   <article class="post-content">
     {% if page.toc and page.toc.beginning %}
       {% comment %}
-      <div id="table-of-contents">
-        {% toc %}
-      </div>
+        <div id="table-of-contents">
+          {% toc %}
+        </div>
       {% endcomment %}
       <hr>
     {% endif %}
@@ -78,9 +78,11 @@ layout: default
 
   {% if page.related_publications %}
     <h2>References</h2>
-    <div class="publications">
-      {% bibliography --group_by none --cited_in_order %}
-    </div>
+    {% comment %}
+      <div class="publications">
+        {% bibliography --group_by none --cited_in_order %}
+      </div>
+    {% endcomment %}
   {% endif %}
 
   {% if site.related_blog_posts and site.related_blog_posts.enabled %}

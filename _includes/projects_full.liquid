@@ -1,0 +1,6 @@
+<div class="project-full">
+  <a href="{% if project.redirect %}{{ project.redirect }}{% else %}{{ project.url | relative_url }}{% endif %}"></a>
+  <h2>{{ project.title }}</h2>
+  <img src="{{ project.image }}" alt="{{ project.title }}">
+  <p>{{ project.description }}</p>
+</div>

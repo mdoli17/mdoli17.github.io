@@ -447,6 +447,11 @@ ninja.data = [{
           description: "another project with an image 🎉",
           section: "Projects",handler: () => {
               window.location.href = "/projects/9_project/";
+            },},{id: "projects-stealth-game-prototype",
+          title: 'Stealth Game Prototype',
+          description: "Faith In Abyss",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/FaithInAbyss/";
             },},{
         id: 'social-email',
         title: 'email',

@@ -1,32 +1,26 @@
 ---
-layout: default
-permalink: /blog/
-title: blog
-nav: false # Mate: Setting this to false since I don't need it.
-nav_order: 1
-pagination:
-  enabled: false
-  collection: posts
-  permalink: /page/:num/
-  per_page: 5
-  sort_field: date
-  sort_reverse: true
-  trail:
-    before: 1 # The number of links before the current page
-    after: 3 # The number of links after the current page
+layout: page
+title: Stealth Game Prototype
+description: Faith In Abyss
+img: assets/img/12.jpg
+importance: 1
+category: Unreal
 ---
+
+Project to showcase work on Faith in Abyss
 
 <div class="post">
   <ul class="post-list">
-    {% assign postlist = site.posts %}
+    {% assign postlist = site.writeups %}
 
     {% for post in postlist %}
-    
+
     {% if post.external_source == blank %}
       {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
     {% else %}
       {% assign read_time = post.feed_content | strip_html | number_of_words | divided_by: 180 | plus: 1 %}
     {% endif %}
+    
     {% assign year = post.date | date: "%Y" %}
     {% assign tags = post.tags | join: "" %}
     {% assign categories = post.categories | join: "" %}
@@ -99,9 +93,5 @@ pagination:
     {% endfor %}
 
   </ul>
-
-{% if page.pagination.enabled %}
-{% include pagination.liquid %}
-{% endif %}
 
 </div>

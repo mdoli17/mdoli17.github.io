@@ -5,7 +5,7 @@ permalink: /projects/
 description: A collection of projects on which I've worked on
 nav: true
 nav_order: 3
-display_categories: [work, fun, test]
+display_categories: [Unreal, Unity]
 horizontal: false
 ---
 

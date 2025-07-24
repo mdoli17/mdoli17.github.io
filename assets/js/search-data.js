@@ -23,18 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "post-test-post",
-        
-          title: "test post",
-        
-        description: "testing post",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2025/test/";
-          
-        },
-      },{id: "books-the-godfather",
+        },{id: "books-the-godfather",
           title: 'The Godfather',
           description: "",
           section: "Books",handler: () => {
@@ -70,11 +59,16 @@ ninja.data = [{
           description: "Project to showcase mage abilities",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Unreal%20Engine/MageDemo/";
-            },},{id: "writeups-stealth-ai",
-          title: 'Stealth AI',
+            },},{id: "writeups-implementing-ai-logic",
+          title: 'Implementing AI Logic',
           description: "",
           section: "Writeups",handler: () => {
-              window.location.href = "/writeups/stealth-ai/";
+              window.location.href = "/projects/FIA/FiaAiPost/";
+            },},{id: "writeups-implementing-test-logic",
+          title: 'Implementing Test Logic',
+          description: "",
+          section: "Writeups",handler: () => {
+              window.location.href = "/writeups/test/";
             },},{
         id: 'social-email',
         title: 'email',

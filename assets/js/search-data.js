@@ -43,27 +43,27 @@ ninja.data = [{
           title: 'Alpaca Dash',
           description: "Thrilling alpaca racing game",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/Unity/AlpacaDash/";
+              window.location.href = "/projects/AlpacaDash/";
             },},{id: "projects-defi-land",
           title: 'DeFi Land',
           description: "Thrilling farming game",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/Unity/DeFiLand/";
+              window.location.href = "/projects/DeFiLand/";
             },},{id: "projects-stealth-game-prototype",
           title: 'Stealth Game Prototype',
           description: "Faith In Abyss",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/Unreal%20Engine/FaithInAbyss/";
+              window.location.href = "/projects/faith-in-abyss/";
             },},{id: "projects-mage-ability-demo",
           title: 'Mage Ability Demo',
           description: "Project to showcase mage abilities",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/Unreal%20Engine/MageDemo/";
+              window.location.href = "/projects/MageDemo/";
             },},{id: "writeups-implementing-ai-logic",
           title: 'Implementing AI Logic',
           description: "",
           section: "Writeups",handler: () => {
-              window.location.href = "/projects/FIA/FiaAiPost/";
+              window.location.href = "/projects/faith-in-abyss/FiaAiPost/";
             },},{id: "writeups-implementing-test-logic",
           title: 'Implementing Test Logic',
           description: "",

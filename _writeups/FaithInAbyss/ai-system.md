@@ -7,7 +7,7 @@ priority: 1
 layout: page
 permalink: /projects/faith-in-abyss/:name/
 toc:
-    sidebar: right
+  sidebar: right
 ---
 
 <h2>
@@ -62,12 +62,14 @@ void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stim
 	const FAISenseID AISenseID_Hearing = UAISense::GetSenseID<UAISense_Hearing>();
 	const FAISenseID AISenseID_Safezone = UAISense::GetSenseID<UAISense_Safezone>();
 
-	if (Stimulus.Type == AISenseID_Hearing)
-	{
-		HandleSensingSound(Stimulus);
-	}
+    if (Stimulus.Type == AISenseID_Hearing)
+    {
+    	HandleSensingSound(Stimulus);
+    }
+
 }
-```
+
+````
 
 ```c++
 void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
@@ -80,8 +82,8 @@ void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
 	const FStateTreePayload_NoiseEvent Payload(ProjectedLocation.Location, AlertType);
 	StateTreeComponent->SendStateTreeEvent(NoiseEventTag, FConstStructView::Make(Payload));
 }
-```
+````
+
 {% endraw %}
 
-This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic. 
-
+This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic.

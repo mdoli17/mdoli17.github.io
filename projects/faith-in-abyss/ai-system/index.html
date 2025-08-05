@@ -7,11 +7,13 @@
 	<span class="k">const</span> <span class="n">FAISenseID</span> <span class="n">AISenseID_Hearing</span> <span class="o">=</span> <span class="n">UAISense</span><span class="o">::</span><span class="n">GetSenseID</span><span class="o">&lt;</span><span class="n">UAISense_Hearing</span><span class="o">&gt;</span><span class="p">();</span>
 	<span class="k">const</span> <span class="n">FAISenseID</span> <span class="n">AISenseID_Safezone</span> <span class="o">=</span> <span class="n">UAISense</span><span class="o">::</span><span class="n">GetSenseID</span><span class="o">&lt;</span><span class="n">UAISense_Safezone</span><span class="o">&gt;</span><span class="p">();</span>
 
-	<span class="k">if</span> <span class="p">(</span><span class="n">Stimulus</span><span class="p">.</span><span class="n">Type</span> <span class="o">==</span> <span class="n">AISenseID_Hearing</span><span class="p">)</span>
-	<span class="p">{</span>
-		<span class="n">HandleSensingSound</span><span class="p">(</span><span class="n">Stimulus</span><span class="p">);</span>
-	<span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">Stimulus</span><span class="p">.</span><span class="n">Type</span> <span class="o">==</span> <span class="n">AISenseID_Hearing</span><span class="p">)</span>
+    <span class="p">{</span>
+    	<span class="n">HandleSensingSound</span><span class="p">(</span><span class="n">Stimulus</span><span class="p">);</span>
+    <span class="p">}</span>
+
 <span class="p">}</span>
+
 </code></pre></div></div> <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">AEnemyAIController</span><span class="o">::</span><span class="n">HandleSensingSound</span><span class="p">(</span><span class="n">FAIStimulus</span> <span class="n">Stimulus</span><span class="p">)</span> <span class="k">const</span>
 <span class="p">{</span>
 	<span class="k">const</span> <span class="n">FVector</span> <span class="n">StimulusLocation</span> <span class="o">=</span> <span class="n">Stimulus</span><span class="p">.</span><span class="n">StimulusLocation</span><span class="p">;</span>

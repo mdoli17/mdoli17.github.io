@@ -154,6 +154,8 @@ collections:
     permalink: /projects/:title/
   writeups:
     output: true
+    defaults:
+      layout: page
 
 # -----------------------------------------------------------------------------
 # Jekyll settings

@@ -24,12 +24,12 @@ Component Roles
 </h2>
 
 - `AI Controller`<br>
-    Acts as the central coordinator. It owns both the Behavior Tree and the State Tree. It handles environmental perception (such as sight, sound, custom safe-zone stimuli) and passes relevant information to the State Tree.<br>
+  Acts as the central coordinator. It owns both the Behavior Tree and the State Tree. It handles environmental perception (such as sight, sound, custom safe-zone stimuli) and passes relevant information to the State Tree.<br>
 
 - `State Tree`<br>
-    Responds to input from the AI Controller. It transitions between high-level states (Patrol, Search, Combat, Lurk) and runs associated tasks. These tasks update the Blackboard values used by the Behavior Tree.<br>
+  Responds to input from the AI Controller. It transitions between high-level states (Patrol, Search, Combat, Lurk) and runs associated tasks. These tasks update the Blackboard values used by the Behavior Tree.<br>
 
 - `Behavior Tree`<br>
-    Uses the current Blackboard values to drive low-level behavior logic, such as movement, animations and executing actions.<br>
+  Uses the current Blackboard values to drive low-level behavior logic, such as movement, animations and executing actions.<br>
 
 This separation allows each system to focus on a specific layer of decision-making: State Tree for high-level state management, and Behavior Tree for executing detailed behavior logic.

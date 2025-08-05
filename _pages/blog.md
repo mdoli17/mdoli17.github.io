@@ -21,7 +21,7 @@ pagination:
     {% assign postlist = site.posts %}
 
     {% for post in postlist %}
-    
+
     {% if post.external_source == blank %}
       {% assign read_time = post.content | number_of_words | divided_by: 180 | plus: 1 %}
     {% else %}

@@ -21,7 +21,8 @@ horizontal: false
   {% assign sorted_projects = categorized_projects | sort: "importance" %}
   <!-- Generate cards for each project -->
 
-  {% if page.horizontal %}
+{% if page.horizontal %}
+
   <div class="container">
     <div class="row">
     {% for project in sorted_projects %}
@@ -37,7 +38,7 @@ horizontal: false
   </div>
   {% endif %}
 
-  {% endfor %}
+{% endfor %}
 
 {% else %}
 

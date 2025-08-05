@@ -6,6 +6,8 @@ thumbnail: assets/img/3.jpg
 priority: 1
 layout: page
 permalink: /projects/faith-in-abyss/:name/
+toc:
+    sidebar: right
 ---
 
 <h2>
@@ -33,3 +35,53 @@ Component Roles
   Uses the current Blackboard values to drive low-level behavior logic, such as movement, animations and executing actions.<br>
 
 This separation allows each system to focus on a specific layer of decision-making: State Tree for high-level state management, and Behavior Tree for executing detailed behavior logic.
+
+<br>
+<br>
+
+<h2>
+AI Controller & Perception System
+</h2>
+
+The `EnemyAIController` manages how the AI perceives its surroundings using Unreal’s `AIPerceptionComponent`. The perception system includes both built-in senses (sight, hearing) and a <b>custom sense</b> I implemented – <b>UAISense_Safezone</b>. This custom sense allows the AI to detect whether the player has entered special areas such as designated “Safezones”, which are invisible to standard perception but play a key role in gameplay tension.
+
+<h3>
+Handling Perception Updates
+</h3>
+Perception updates are handled in the controller’s `OnTargetPerceptionUpdated` callback. Instead of directly modifying the behavior or state, these events are converted into `State Tree events`, identified by `Gameplay Tags`. Each event also carries <b>relative payload data</b>, providing additional context (such as stimulus strength, actor location, relative player information). These are dispatched to the State Tree, which interprets the data and determines whether to transition to a new state – such as from <b>Patrol</b> to <b>Search</b>, or from <b>Search</b> to <b>Hostile</b>.
+
+<div class="caption">
+    AEnemyAIController.cp
+</div>
+{% raw %}
+```c++
+void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stimulus)
+{
+    // ID's for senses
+	const FAISenseID AISenseID_Sight = UAISense::GetSenseID<UAISense_Sight>();
+	const FAISenseID AISenseID_Hearing = UAISense::GetSenseID<UAISense_Hearing>();
+	const FAISenseID AISenseID_Safezone = UAISense::GetSenseID<UAISense_Safezone>();
+
+	if (Stimulus.Type == AISenseID_Hearing)
+	{
+		HandleSensingSound(Stimulus);
+	}
+}
+```
+
+```c++
+void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
+{
+	const FVector StimulusLocation = Stimulus.StimulusLocation;
+
+	int64 AlertTypeValue = StaticEnum<EAlertType>()->GetValueByName(Stimulus.Tag);
+	const EAlertType AlertType = AlertTypeValue == INDEX_NONE ? Cautious : static_cast<EAlertType>(AlertTypeValue);
+
+	const FStateTreePayload_NoiseEvent Payload(ProjectedLocation.Location, AlertType);
+	StateTreeComponent->SendStateTreeEvent(NoiseEventTag, FConstStructView::Make(Payload));
+}
+```
+{% endraw %}
+
+This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic. 
+

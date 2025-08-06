@@ -29,7 +29,7 @@ document.addEventListener("readystatechange", () => {
           var zoom = d3.zoom().on("zoom", function (event) {
             inner.attr("transform", event.transform);
           });
-          svg.call(zoom);
+          svg.call(zoom).call(zoom.transform, d3.zoomIdentity.translate(650, 0).scale(2.0));
         });
       });
     }

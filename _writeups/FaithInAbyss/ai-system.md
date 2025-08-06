@@ -8,6 +8,9 @@ layout: page
 permalink: /projects/faith-in-abyss/:name/
 toc:
   sidebar: right
+mermaid:
+  enabled: true
+  zoomable: true
 ---
 
 <h2>
@@ -85,6 +88,24 @@ void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
 ```
 
 This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic.
+
+<div class="caption">
+AI Perception & Decision Flow
+</div>
+```mermaid
+flowchart TD
+    n1["World<br>(Player, Actors)"] L_n1_n2_0@-- Report Sense Events --> n2["AIPerceptionComponent<br>(on EnemyAIController)"]
+    n2 L_n2_n3_0@-- Triggers OnTargetPerceptionUpdated --> n3["EnemyAIController"]
+    n3 L_n3_n4_0@-- Posts State Tree<br>Event with Payload --> n4["State Tree"]
+    n4 L_n4_n5_0@-- Sets Blackboard Values<br>using State Tasks --> n5["Behavior Tree<br>(Tasks, Conditions based on Blackboard)"]
+    n5 L_n5_n6_0@-- "Drives in-world Behavior" --> n6["Enemy Pawn<br>(Move, Attack, Animate, etc.)"]
+    n1@{ shape: rect}
+    L_n1_n2_0@{ animation: slow } 
+    L_n2_n3_0@{ animation: slow } 
+    L_n3_n4_0@{ animation: slow } 
+    L_n4_n5_0@{ animation: slow } 
+    L_n5_n6_0@{ animation: slow }
+```
 
 <h3>
 Custom Perception: Safezone Sense

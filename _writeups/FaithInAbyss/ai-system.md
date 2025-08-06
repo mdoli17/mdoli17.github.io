@@ -235,3 +235,27 @@ void AEnemyAIController::HandleSensingSafezone(AActor* SourceActor, const FAISti
 ```
 
 This approach allowed me to preserve Unreal’s perception API structure while extending it with robust, memory-safe event data flow.
+
+<br>
+<br>
+
+<h2>
+State Tree - Structure, States and Transitions
+</h2>
+
+The State Tree is the core of my AI’s high-level decision-making. It manages which state the enemy is currently in, Transitions between states based on events, and runs tasks that modify the behavior indirectly via the Blackboard.
+
+<h3>
+State Structure & Execution Flow
+</h3>
+
+The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` states (Colored and Gray), each with a clear purpose:
+
+- `Behavioral` (colored) states represent the actual high-level states the AI can be in. These are always leaf states-the final nodes in a state branch-and are the only states that execute tasks which write into blackboard. Each Behavioral State defines what the AI is doing at that moment, such as <i>Patrolling</i>, <i>Searching Cautiously</i>, engaging in <i>Combat</i>, or <i>Lurking</i> in a safe-zone area.
+
+- `Transitional` (gray) States serve as a routing logic between events and <b>Behavioral</b> States. They are similar to the states which have a type set to “Linked”, however they can execute tasks. Their role is to:
+  1. Receive State Tree events triggered by the AI Controller (e.g. OnNoise, OnSightGained)
+  2. Fill shared <b>parameter data structures</b> with context (event payload)
+  3. Instantly transition into the appropriate Behavioural State
+
+This separation of responsibilities allows the AI to respond to complex inputs in a <b>modular</b> and maintainable way. Transitions are decoupled from behavior logic, and payload data is passed cleanly through parameters-enabling each Behavioral State to react appropriately without needing to know the source of the trigger.

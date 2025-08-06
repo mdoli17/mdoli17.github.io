@@ -6,11 +6,15 @@ thumbnail: assets/img/3.jpg
 priority: 1
 layout: page
 permalink: /projects/faith-in-abyss/:name/
+tabs: true
 toc:
   sidebar: right
 mermaid:
   enabled: true
   zoomable: true
+images:
+  compare: true
+  slider: true
 ---
 
 <h2>
@@ -57,6 +61,30 @@ Perception updates are handled in the controller’s `OnTargetPerceptionUpdated`
     AEnemyAIController.cpp
 </div>
 
+This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic.
+
+{% tabs flow %}
+{% tab flow decision-flow %}
+
+```mermaid
+flowchart TD
+    n1["World<br>(Player, Actors)"] L_n1_n2_0@-- Report Sense Events --> n2["AIPerceptionComponent<br>(on EnemyAIController)"]
+    n2 L_n2_n3_0@-- Triggers OnTargetPerceptionUpdated --> n3["EnemyAIController"]
+    n3 L_n3_n4_0@-- Posts State Tree<br>Event with Payload --> n4["State Tree"]
+    n4 L_n4_n5_0@-- Sets Blackboard Values<br>using State Tasks --> n5["Behavior Tree<br>(Tasks, Conditions based on Blackboard)"]
+    n5 L_n5_n6_0@-- "Drives in-world Behavior" --> n6["Enemy Pawn<br>(Move, Attack, Animate, etc.)"]
+    n1@{ shape: rect}
+    L_n1_n2_0@{ animation: slow }
+    L_n2_n3_0@{ animation: slow }
+    L_n3_n4_0@{ animation: slow }
+    L_n4_n5_0@{ animation: slow }
+    L_n5_n6_0@{ animation: slow }
+```
+
+{% endtab %}
+
+{% tab flow ai-controller %}
+
 ```c++
 void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stimulus)
 {
@@ -70,6 +98,7 @@ void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stim
     	HandleSensingSound(Stimulus);
     }
 
+    // Other senses
 }
 
 ```
@@ -87,25 +116,23 @@ void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
 }
 ```
 
-This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic.
+{% endtab %}
 
-<div class="caption">
-AI Perception & Decision Flow
-</div>
-```mermaid
-flowchart TD
-    n1["World<br>(Player, Actors)"] L_n1_n2_0@-- Report Sense Events --> n2["AIPerceptionComponent<br>(on EnemyAIController)"]
-    n2 L_n2_n3_0@-- Triggers OnTargetPerceptionUpdated --> n3["EnemyAIController"]
-    n3 L_n3_n4_0@-- Posts State Tree<br>Event with Payload --> n4["State Tree"]
-    n4 L_n4_n5_0@-- Sets Blackboard Values<br>using State Tasks --> n5["Behavior Tree<br>(Tasks, Conditions based on Blackboard)"]
-    n5 L_n5_n6_0@-- "Drives in-world Behavior" --> n6["Enemy Pawn<br>(Move, Attack, Animate, etc.)"]
-    n1@{ shape: rect}
-    L_n1_n2_0@{ animation: slow } 
-    L_n2_n3_0@{ animation: slow } 
-    L_n3_n4_0@{ animation: slow } 
-    L_n4_n5_0@{ animation: slow } 
-    L_n5_n6_0@{ animation: slow }
-```
+{% tab flow state-tree %}
+<swiper-container keyboard="true" navigation="true" pagination="true" pacination-clickable="true" pagination-dynamic-bullets="true" rewind="true">
+<swiper-slide>{% include figure.liquid loading="eager" path="assets/img/projects/fia/state-tree-bbtask-highlight.png" class="img-fluid rounded z-depth-1" zoomable=true %}</swiper-slide>
+<swiper-slide>{% include figure.liquid loading="eager" path="assets/img/projects/fia/state-tree-bbtask.png" class="img-fluid rounded z-depth-1" zoomable=true%}</swiper-slide>
+</swiper-container>
+{% endtab %}
+
+{% tab flow behavior-tree %}
+<swiper-container keyboard="true" navigation="true" pagination="true" pacination-clickable="true" pagination-dynamic-bullets="true" rewind="true">
+<swiper-slide>{% include figure.liquid loading="eager" path="assets/img/projects/fia/behavior-tree-lurk.png" class="img-fluid rounded z-depth-1" zoomable=true %}</swiper-slide>
+<swiper-slide>{% include figure.liquid loading="eager" path="assets/img/projects/fia/behavior-tree-blackboard.png" class="img-fluid rounded z-depth-1" zoomable=true%}</swiper-slide>
+</swiper-container>
+{% endtab %}
+
+{% endtabs %}
 
 <h3>
 Custom Perception: Safezone Sense

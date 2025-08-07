@@ -68,12 +68,29 @@ This design ensures a clean separation of concerns: the AI Controller handles se
 
 ```mermaid
 flowchart TD
-    n1["World<br>(Player, Actors)"] L_n1_n2_0@-- Report Sense Events --> n2["AIPerceptionComponent<br>(on EnemyAIController)"]
-    n2 L_n2_n3_0@-- Triggers OnTargetPerceptionUpdated --> n3["EnemyAIController"]
-    n3 L_n3_n4_0@-- Posts State Tree<br>Event with Payload --> n4["State Tree"]
-    n4 L_n4_n5_0@-- Sets Blackboard Values<br>using State Tasks --> n5["Behavior Tree<br>(Tasks, Conditions based on Blackboard)"]
-    n5 L_n5_n6_0@-- "Drives in-world Behavior" --> n6["Enemy Pawn<br>(Move, Attack, Animate, etc.)"]
+ subgraph s1["2"]
+        n2["AIPerceptionComponent<br>(on EnemyAIController)"]
+        n3["EnemyAIController"]
+  end
+ subgraph s2["3"]
+        n4["State Tree"]
+  end
+ subgraph s3["4"]
+        n5["Behavior Tree<br>(Tasks, Conditions based on Blackboard)"]
+  end
+ subgraph s4["5"]
+        n6["Enemy Pawn<br>(Move, Attack, Animate, etc.)"]
+  end
+ subgraph s5["1"]
+        n1["World<br>(Player, Actors)"]
+  end
+    n1 L_n1_n2_0@-- Report Sense Events --> n2
+    n2 L_n2_n3_0@-- Triggers OnTargetPerceptionUpdated --> n3
+    n3 L_n3_n4_0@-- Posts State Tree<br>Event with Payload --> n4
+    n4 L_n4_n5_0@-- Sets Blackboard Values<br>using State Tasks --> n5
+    n5 L_n5_n6_0@-- "Drives in-world Behavior" --> n6
     n1@{ shape: rect}
+
     L_n1_n2_0@{ animation: slow }
     L_n2_n3_0@{ animation: slow }
     L_n3_n4_0@{ animation: slow }
@@ -83,9 +100,14 @@ flowchart TD
 
 {% endtab %}
 
+{% tab flow world %}
+{% include video.liquid path="assets/video/fia/ai-noise-report-bpgraph.mp4" class="img-fluid rounded z-depth-1" controls=true %}
+{% endtab %}
+
 {% tab flow ai-controller %}
 
 ```c++
+// Handle percieved senses
 void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stimulus)
 {
     // ID's for senses
@@ -106,11 +128,12 @@ void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stim
 ```c++
 void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
 {
+    // Gather Payload data from Stimuilus
 	const FVector StimulusLocation = Stimulus.StimulusLocation;
-
 	int64 AlertTypeValue = StaticEnum<EAlertType>()->GetValueByName(Stimulus.Tag);
 	const EAlertType AlertType = AlertTypeValue == INDEX_NONE ? Cautious : static_cast<EAlertType>(AlertTypeValue);
 
+    // Send State Tree event with Payload data
 	const FStateTreePayload_NoiseEvent Payload(ProjectedLocation.Location, AlertType);
 	StateTreeComponent->SendStateTreeEvent(NoiseEventTag, FConstStructView::Make(Payload));
 }

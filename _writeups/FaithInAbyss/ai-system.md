@@ -51,13 +51,15 @@ This separation allows each system to focus on a specific layer of decision-maki
 The <b>EnemyAIController</b> manages how the AI perceives its surroundings using Unreal’s <b>AIPerceptionComponent</b>. Perception updates are handled in the controller’s `OnTargetPerceptionUpdated` callback. Instead of directly modifying the behavior or state, these events are converted into <b>State Tree events</b>, identified by `Gameplay Tags`. Each event also carries relative `Payload` data, providing additional context (such as stimulus strength, actor location, relative player information). These are dispatched to the State Tree, which interprets the data and determines whether to `Transition` to a new state – such as from <b>Patrol</b> to <b>Search</b>, or from <b>Search</b> to <b>Hostile</b>.
 
 > ##### TIP
+>
 > Add a little bit about Behavior Tree as well..
 > Show footage of actual gameplay and code exeuction which corresponds to the graph drawn above.
-{: .block-tip }
+> {: .block-tip }
 
 > ##### NOTE
+>
 > The highlighted section shows how the state-tree is notified about an perception event using FGameplayTag and relative Payload Data to the event
-{: .block-note }
+> {: .block-note }
 
 {% tabs a %}
 
@@ -65,6 +67,7 @@ The <b>EnemyAIController</b> manages how the AI perceives its surroundings using
 {% include figure.liquid loading="eager" path="assets/img/projects/fia/ai-controller-perception-update-handler-highlight.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 
 {% details Click here to see whole code snippet %}
+
 ```c++
 // ---------------------- EnemyAIController.cpp -------------------- //
 void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stimulus)
@@ -96,7 +99,7 @@ void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
 {
   const FVector StimulusLocation = Stimulus.StimulusLocation;
 
-// Project Location onto a Navigable Location (Example: Sound is reported by a bottle being shattered to a wall) 
+// Project Location onto a Navigable Location (Example: Sound is reported by a bottle being shattered to a wall)
   UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
   if (NavSys == nullptr) return;
   FNavLocation ProjectedLocation;
@@ -134,6 +137,7 @@ struct FStateTreePayload_NoiseEvent
 	TEnumAsByte<EAlertType> AlertType;
 };
 ```
+
 {% enddetails %}
 {% endtab %}
 
@@ -150,7 +154,6 @@ struct FStateTreePayload_NoiseEvent
 {% endtabs %}
 
 This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic.
-
 
 <br>
 <br>
@@ -177,9 +180,9 @@ The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` s
 This separation of responsibilities allows the AI to respond to complex inputs in a <b>modular</b> and <b>maintainable</b> way. Transitions are decoupled from behavior logic, and payload data is passed cleanly through parameters-enabling each Behavioral State to react appropriately without needing to know the source of the trigger.
 
 > ##### TIP
+>
 > Maybe add an example of what adding a new state would look like...
-{: .block-tip}
-
+> {: .block-tip}
 
 <h2>
 Behavior Tree
@@ -188,22 +191,21 @@ Behavior Tree
 Once the State Tree has determined the current Behavioral State and relative Blackboard values have been updated, the Behavior Tree executes <b> the specific actions</b> needed for that state. It reads the updated <b>Blackboard values</b> to decide which branches to run.
 
 For instance:
+
 - In Neutral, the Behavior Tree might run a patrol route service and idel animations.
-{% include video.liquid path="assets/video/fia/patrolling.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+  {% include video.liquid path="assets/video/fia/patrolling.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
 
 - In Search -> Cautious, the AI is directed to move toward the last known clue location slowly, scanning the environment.
-{% include video.liquid path="assets/video/fia/search-aggresive.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+  {% include video.liquid path="assets/video/fia/search-aggresive.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
 
 - In Hostile -> Combat, movement towards the player, attack execeution and target tracking is handled.
 
 By having the State Tree control what state the AI is in and the Behavior Tree handle <b>how</b> that state behaves, the system remains both flexible and focused.
 
-
 <br>
 <br>
 <br>
 <br>
-
 
 <h3>
 Custom Perception: Safezone Sense

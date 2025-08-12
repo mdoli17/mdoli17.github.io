@@ -28,7 +28,7 @@ Gameplay-wise, I took inspiration from the <b>unpredictable and relentless enemy
 
 Behavior Trees are a powerful tool for implementing AI decision-making logic. However, I found that tracking the AI’s <b>current high-level state</b> at specific moments-and dynamically changing its behavior was inconvenient when using Behavior Trees alone.
 
-To address this, I chose to combine a <b>State Tree</b> with the Behavior Tree.The State Tree manages <b>high-level transitions</b> () and updates shared data, while the Behavior Tree executes <b>low-level actions</b> based on that state. This hybrid approach resulted in <b>cleaner structure, clearer separation of responsibilities, and easier scalability</b> for future gameplay features.
+To address this, I chose to combine a <b>State Tree</b> with the Behavior Tree.The State Tree manages <b>high-level transitions</b> (such as Neutral, Search, Hostile) and updates shared data, while the Behavior Tree executes <b>low-level actions</b> based on that state. This hybrid approach resulted in <b>cleaner structure, clearer separation of responsibilities, and easier scalability</b> for future gameplay features.
 
 ---
 
@@ -59,11 +59,10 @@ Data Flow
 {% include figure.liquid loading="eager" path="assets/img/projects/fia/ai-system-flowgraph.svg" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 </div>
 
-The <b>EnemyAIController</b> manages how the AI perceives its surroundings using Unreal’s <b>AIPerceptionComponent</b>. Perception updates are handled in the controller’s `OnTargetPerceptionUpdated` callback. Instead of directly modifying the behavior or state, these events are converted into <b>State Tree events</b>, identified by `Gameplay Tags`. Each event also carries relative `Payload` data, providing additional context (such as stimulus strength, actor location, relative player information). These are dispatched to the State Tree, which interprets the data and determines whether to `Transition` to a new state – such as from <b>Patrol</b> to <b>Search</b>, or from <b>Search</b> to <b>Hostile</b>.
+The <b>EnemyAIController</b> manages how the AI perceives its surroundings using Unreal’s <b>AIPerceptionComponent</b>. Perception updates are handled in the controller’s `OnTargetPerceptionUpdated` callback. Instead of directly modifying the behavior or state, these events are converted into <b>State Tree events</b>, identified by `Gameplay Tags`. Each event also carries relative `Payload` data, providing additional context (such as stimulus strength, actor location, relative player information). These are dispatched to the State Tree, which interprets the data and determines whether to `Transition` to a new state – such as from <b>Patrol</b> to <b>Search</b>, or from <b>Search</b> to <b>Hostile</b>. Once in a new state, the Behavior Tree executes the specific logic for that state using updated Blackboard values.
 
 > ##### TIP
 >
-> Add a little bit about Behavior Tree as well..
 > Show footage of actual gameplay and code exeuction which corresponds to the graph drawn above.
 > {: .block-tip }
 
@@ -129,16 +128,51 @@ The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` s
 
 - `Behavioral` (colored) states represent the actual high-level states the AI can be in. These are always leaf states-the final nodes in a state branch-and are the only states that execute tasks which write into blackboard. Each Behavioral State defines what the AI is doing at that moment, such as <i>Patrolling</i>, <i>Searching Cautiously</i>, engaging in <i>Combat</i>, or <i>Lurking</i> in a safe-zone area.
 
+> ##### TIP
+>
+> Show image of `Behavioral` State
+> {: .block-tip}
+
 - `Transitional` (gray) states serve as a routing logic between events and <b>Behavioral</b> States. They are similar to the states which have a type set to “Linked”, however they can execute tasks. Their role is to:
   1. Receive State Tree events triggered by the AI Controller (e.g. OnNoise, OnSightGained)
   2. Fill shared <b>parameter data structures</b> with context (event payload)
-  3. Instantly transition into the appropriate <b>Behavioural</b> State
+  3. Instantly transition into the appropriate <b>Behavioral</b> State
+
+> ##### TIP
+>
+> Show image of `Transitional` State
+> {: .block-tip}
 
 This separation of responsibilities allows the AI to respond to complex inputs in a <b>modular</b> and <b>maintainable</b> way. Transitions are decoupled from behavior logic, and payload data is passed cleanly through parameters-enabling each Behavioral State to react appropriately without needing to know the source of the trigger.
 
 <h3>
-Transitional States & Event Handling
+Event Handling & State Selection
 </h3>
+
+<b>State Tree events</b> received by the AI Controller are identified using Gameplay Tags. They can be accompanied by a <b>relative payload data structure</b> containing relavant context. This event-driven approach ensures that perception data is decoupled from direct behavior changes, allowing the State Tree to interpret the event and determine the most appropriate next state.
+
+Importantly, the <b>currently active Behavioral State</b> defines which Transitional State it can move into. Event if a valid event is received, the system will only transition if that Behavioral State explicitly allows it. This prevents inappropriate state changes and ensures that transitions follow the intended AI logic.
+
+> ##### TIP
+>
+> Show example image of possible transitions from a Behavioral State
+> {: .block-tip}
+
+In most cases, once a valid event is accepted, the AI enters a <b>Transitional State</b>. As mentioned above, these states do not perform active behaviors themselves - instead, they extract and prepare parameters from the event payload (such as a noise location or actor reference) and immediately transition to a <b>Behavioral State</b> that can act on that information.
+
+> ##### TIP
+>
+> Show example image of a Transitional State executing task which sets parameter data
+> {: .block-tip}
+
+For example, if the AI is currently in <b>Neutral</b> and receives an <b>OnNoise</b> event, it will first check if the Neutral permits a transition to the <b>Detect Noise</b> transitional state. If allowed, it enters <b>Detect Noise</b>, populates a SearchPayload with the designated search position and alert type, and then transitions to <b>Search</b>. From there, additional decision logic within <b>Search</b> selects appropriate child state, such as <b>Cautious</b> or <b>Aggressive</b>, depending on the payload data.
+
+> ##### TIP
+>
+> Show example image of the described example above
+> {: .block-tip}
+
+This layered approach to event handling not only makes the system easier to maintain but also makes it straightforward to add new event types or states without rewriting existing behaviour logic.
 
 <h3>
 Parameter Payload Structures
@@ -159,13 +193,17 @@ Once the State Tree has determined the current Behavioral State and relative Bla
 
 For instance:
 
-- In Neutral, the Behavior Tree might run a patrol route service and idel animations.
+- In `Neutral` state, the Behavior Tree might run a patrol route service and idle animations.
   {% include video.liquid path="assets/video/fia/patrolling.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
 
-- In Search -> Cautious, the AI is directed to move toward the last known clue location slowly, scanning the environment.
+- In `Search->Aggressive` state, the AI is directed to move toward the last known clue location at high pase, scan and interact with the environment (Covers, Lockers and other hiding spots).
   {% include video.liquid path="assets/video/fia/search-aggresive.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
 
-- In Hostile -> Combat, movement towards the player, attack execeution and target tracking is handled.
+- In `Hostile->Combat` state, movement towards the player, attack execeution and target tracking is handled.
+  > ##### TIP
+  >
+  > Add footage for `Hostile->Combat`
+  > {: .block-tip}
 
 By having the State Tree control what state the AI is in and the Behavior Tree handle <b>how</b> that state behaves, the system remains both flexible and focused.
 

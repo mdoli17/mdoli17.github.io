@@ -62,8 +62,9 @@ Data Flow
 The <b>EnemyAIController</b> manages how the AI perceives its surroundings using Unreal’s <b>AIPerceptionComponent</b>. Perception updates are handled in the controller’s `OnTargetPerceptionUpdated` callback. Instead of directly modifying the behavior or state, these events are converted into <b>State Tree events</b>, identified by `Gameplay Tags`. Each event also carries relative `Payload` data, providing additional context (such as stimulus strength, actor location, relative player information). These are dispatched to the State Tree, which interprets the data and determines whether to `Transition` to a new state – such as from <b>Patrol</b> to <b>Search</b>, or from <b>Search</b> to <b>Hostile</b>. Once in a new state, the Behavior Tree executes the specific logic for that state using updated Blackboard values.
 
 > ##### TIP
+>
 > Show footage of actual gameplay and code exeuction which corresponds to the graph drawn above.
-{: .block-tip }
+> {: .block-tip }
 
 ---
 
@@ -129,11 +130,11 @@ The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` s
 
 {% include figure.liquid path="assets/img/projects/fia/state-tree-behavioral-state.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 
-| Legend | Description |
-| :--- | --- |
-| 1 | Behavioral State |
-| 2 | Call of a State Tree Task which sets Blackboard Values |
-| 3 | Implementation of the State Tree Task |
+| Legend | Description                                            |
+| :----- | ------------------------------------------------------ |
+| 1      | Behavioral State                                       |
+| 2      | Call of a State Tree Task which sets Blackboard Values |
+| 3      | Implementation of the State Tree Task                  |
 
 <br>
 
@@ -144,11 +145,11 @@ The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` s
 
 {% include figure.liquid path="assets/img/projects/fia/state-tree-transitional-state.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 
-| Legend | Description |
-| :--- | --- |
-| 1 | Transitional State |
-| 2 | Call of a State Tree Task which sets Parameter Values |
-| 3 | Implementation of the State Tree Task |
+| Legend | Description                                           |
+| :----- | ----------------------------------------------------- |
+| 1      | Transitional State                                    |
+| 2      | Call of a State Tree Task which sets Parameter Values |
+| 3      | Implementation of the State Tree Task                 |
 
 <br>
 
@@ -164,14 +165,14 @@ Importantly, the <b>currently active Behavioral State</b> defines which Transiti
 
 {% include figure.liquid path="assets/img/projects/fia/state-tree-event-handling.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 
-| Legend | Description |
-| :--- | --- |
-| 1 | Currently selected Behavioural State which receives a State Tree event |
-| 2 | Possible destination Transitional States marked explicitly |
-| 3 | Gameplay Tag which Identifies the State Tree event |
-| 4 | Data structure which is passed with the State Tree event as Payload |
-| 5 | Transition to a Transitional State
-| 6 | Target Transitional State
+| Legend | Description                                                            |
+| :----- | ---------------------------------------------------------------------- |
+| 1      | Currently selected Behavioural State which receives a State Tree event |
+| 2      | Possible destination Transitional States marked explicitly             |
+| 3      | Gameplay Tag which Identifies the State Tree event                     |
+| 4      | Data structure which is passed with the State Tree event as Payload    |
+| 5      | Transition to a Transitional State                                     |
+| 6      | Target Transitional State                                              |
 
 <br>
 
@@ -181,15 +182,15 @@ For example, if the AI is currently in <b>Neutral</b> and receives an <b>OnNoise
 
 {% include figure.liquid path="assets/img/projects/fia/state-tree-debugger.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 
-| Legend | Description |
-| :--- | --- |
-| 1 | Transition from <b>Neutral</b> to <b>Aggressive</b> search state |
-| 2 | State Tree event <b>OnNoise</b> sent from <b>AI Controller</b> |
-| 3 | Trigger transition <b>Detect Noise</b> since <b>Neutral</b> state allows it |
-| 4 | Populate SearchPayload by executing task of the Transitional State |
-| 5 | Immediate transition trigger to the <b>Search</b> State |
-| 6 | Successful check for child <b>Aggressive</b> Behavioral State |
-| 7 | Enter <b>Aggressive</b> behavioral state and set Blackboard values by executing its task | 
+| Legend | Description                                                                              |
+| :----- | ---------------------------------------------------------------------------------------- |
+| 1      | Transition from <b>Neutral</b> to <b>Aggressive</b> search state                         |
+| 2      | State Tree event <b>OnNoise</b> sent from <b>AI Controller</b>                           |
+| 3      | Trigger transition <b>Detect Noise</b> since <b>Neutral</b> state allows it              |
+| 4      | Populate SearchPayload by executing task of the Transitional State                       |
+| 5      | Immediate transition trigger to the <b>Search</b> State                                  |
+| 6      | Successful check for child <b>Aggressive</b> Behavioral State                            |
+| 7      | Enter <b>Aggressive</b> behavioral state and set Blackboard values by executing its task |
 
 <br>
 
@@ -200,8 +201,9 @@ Parameter Payload Structures
 </h3>
 
 > ##### TIP
+>
 > Maybe add an example of what adding a new state would look like...
-{: .block-tip}
+> {: .block-tip}
 
 ---
 
@@ -220,9 +222,10 @@ For instance:
   {% include video.liquid path="assets/video/fia/search-aggresive.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
 
 - In `Hostile->Combat` state, movement towards the player, attack execeution and target tracking is handled.
-> ##### TIP
-> Add footage for `Hostile->Combat`
-{: .block-tip}
+  > ##### TIP
+  >
+  > Add footage for `Hostile->Combat`
+  > {: .block-tip}
 
 By having the State Tree control what state the AI is in and the Behavior Tree handle <b>how</b> that state behaves, the system remains both flexible and focused.
 

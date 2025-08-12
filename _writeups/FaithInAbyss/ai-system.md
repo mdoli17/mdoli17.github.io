@@ -22,16 +22,23 @@ pretty_table: true
 AI System Overview
 </h2>
 
-`Behavior Trees` are a powerful tool for implementing AI decision-making logic. However, I found that tracking the AI’s current state at specific moments-and dynamically changing its behavior was inconvenient when using Behavior Trees alone.
+In this project, the AI system is designed to create reactive and believable enemy vehavior while keeping the underlying logic <b>modular</b>, <b>maintanable, and easy to extend.</b> Its purpose is to manage how enemies perceive the world, decide their current state, and execute appropriate actions in real time.
 
-To address this, I chose to separate certain aspects of state handling and decision-making from the `Behavior Tree` and `AI Controller`. Using `State Tree` alongside the `Behavior Tree` I was able to achieve a cleaner structure and more maintainable logic, allowing each system to play its strengths.
+Gameplay-wise, I took inspiration from the <b>unpredictable and relentless enemy encounters</b> in <i>Outlast</i>, and the <b>tense, location-driven threat dynamics</b> of the series <i>From</i>. Both emphasize the importance of enemies that react believably to the player's actions and surroundings, which informed my focus on clear state transitions and context-driven behaviors.
 
-<br>
-<br>
+Behavior Trees are a powerful tool for implementing AI decision-making logic. However, I found that tracking the AI’s <b>current high-level state</b> at specific moments-and dynamically changing its behavior was inconvenient when using Behavior Trees alone.
+
+To address this, I chose to combine a <b>State Tree</b> with the Behavior Tree.The State Tree manages <b>high-level transitions</b> () and updates shared data, while the Behavior Tree executes <b>low-level actions</b> based on that state. This hybrid approach resulted in <b>cleaner structure, clearer separation of responsibilities, and easier scalability</b> for future gameplay features.
+
+---
 
 <h2>
-Component Roles
+Architecture Overview
 </h2>
+
+<h3>
+Component Roles
+</h3>
 
 - `AI Controller`<br>
   Acts as the central coordinator. It owns both the Behavior Tree and the State Tree. It handles environmental perception (such as sight, sound, custom safe-zone stimuli) and passes relevant information to the State Tree.<br>
@@ -44,6 +51,10 @@ Component Roles
 
 This separation allows each system to focus on a specific layer of decision-making: State Tree for high-level state management, and Behavior Tree for executing detailed behavior logic.
 
+<h3>
+Data Flow
+</h3>
+
 <div>
 {% include figure.liquid loading="eager" path="assets/img/projects/fia/ai-system-flowgraph.svg" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 </div>
@@ -55,6 +66,121 @@ The <b>EnemyAIController</b> manages how the AI perceives its surroundings using
 > Add a little bit about Behavior Tree as well..
 > Show footage of actual gameplay and code exeuction which corresponds to the graph drawn above.
 > {: .block-tip }
+
+---
+
+<h2>
+AI Controller & Perception
+</h2>
+
+<h3>
+Perception Setup
+</h3>
+
+<h4>	
+AIPerceptionComponent Configuration
+</h4>
+
+<h4>	
+Default Senses (Sight, Hearing)
+</h4>
+
+<h4>	
+Custom Safe-zone Sense (UAISense_Safezone)
+</h4>
+
+<h3>
+Event Handling & Communication with State Tree
+</h3>
+
+<h4>
+OnTargetPerceptionUpdated workflow
+</h4>
+
+<h4>
+Converting FAIStimuli into State Tree Events using FGameplayTags
+</h4>
+
+<h4>
+Passing relative payload data structures
+</h4>
+
+<h4>
+How Transitional States use this payload
+</h4>
+
+<h4>
+Benefits of decoupling perception from behavior logic
+</h4>
+
+---
+
+<h2>
+State Tree - Structure, States and Transitions
+</h2>
+
+The State Tree is the core of my AI’s <b>high-level</b> decision-making. It determines <i>which</i> state the AI should be in at any given moment and drives the flow toward the correct <b>Behavioral State</b>.
+
+<h3>
+Behavioral States vs Transitional States
+</h3>
+
+The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` states (Colored and Gray), each with a clear purpose:
+
+- `Behavioral` (colored) states represent the actual high-level states the AI can be in. These are always leaf states-the final nodes in a state branch-and are the only states that execute tasks which write into blackboard. Each Behavioral State defines what the AI is doing at that moment, such as <i>Patrolling</i>, <i>Searching Cautiously</i>, engaging in <i>Combat</i>, or <i>Lurking</i> in a safe-zone area.
+
+- `Transitional` (gray) states serve as a routing logic between events and <b>Behavioral</b> States. They are similar to the states which have a type set to “Linked”, however they can execute tasks. Their role is to:
+  1. Receive State Tree events triggered by the AI Controller (e.g. OnNoise, OnSightGained)
+  2. Fill shared <b>parameter data structures</b> with context (event payload)
+  3. Instantly transition into the appropriate <b>Behavioural</b> State
+
+This separation of responsibilities allows the AI to respond to complex inputs in a <b>modular</b> and <b>maintainable</b> way. Transitions are decoupled from behavior logic, and payload data is passed cleanly through parameters-enabling each Behavioral State to react appropriately without needing to know the source of the trigger.
+
+<h3>
+Transitional States & Event Handling
+</h3>
+
+<h3>
+Parameter Payload Structures
+</h3>
+
+> ##### TIP
+>
+> Maybe add an example of what adding a new state would look like...
+> {: .block-tip}
+
+---
+
+<h2>
+Behavior Tree
+</h2>
+
+Once the State Tree has determined the current Behavioral State and relative Blackboard values have been updated, the Behavior Tree executes <b> the specific actions</b> needed for that state. It reads the updated <b>Blackboard values</b> to decide which branches to run.
+
+For instance:
+
+- In Neutral, the Behavior Tree might run a patrol route service and idel animations.
+  {% include video.liquid path="assets/video/fia/patrolling.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+
+- In Search -> Cautious, the AI is directed to move toward the last known clue location slowly, scanning the environment.
+  {% include video.liquid path="assets/video/fia/search-aggresive.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+
+- In Hostile -> Combat, movement towards the player, attack execeution and target tracking is handled.
+
+By having the State Tree control what state the AI is in and the Behavior Tree handle <b>how</b> that state behaves, the system remains both flexible and focused.
+
+---
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<h2>
+NEEDS TO BE MANAGED
+</h2>
 
 > ##### NOTE
 >
@@ -155,57 +281,7 @@ struct FStateTreePayload_NoiseEvent
 
 This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic.
 
-<br>
-<br>
-
-<h2>
-State Tree - Structure, States and Transitions
-</h2>
-
-The State Tree is the core of my AI’s <b>high-level</b> decision-making. It determines <i>which</i> state the AI should be in at any given moment and drives the flow toward the correct <b>Behavioral State</b>.
-
-<h3>
-State Structure & Execution Flow
-</h3>
-
-The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` states (Colored and Gray), each with a clear purpose:
-
-- `Behavioral` (colored) states represent the actual high-level states the AI can be in. These are always leaf states-the final nodes in a state branch-and are the only states that execute tasks which write into blackboard. Each Behavioral State defines what the AI is doing at that moment, such as <i>Patrolling</i>, <i>Searching Cautiously</i>, engaging in <i>Combat</i>, or <i>Lurking</i> in a safe-zone area.
-
-- `Transitional` (gray) states serve as a routing logic between events and <b>Behavioral</b> States. They are similar to the states which have a type set to “Linked”, however they can execute tasks. Their role is to:
-  1. Receive State Tree events triggered by the AI Controller (e.g. OnNoise, OnSightGained)
-  2. Fill shared <b>parameter data structures</b> with context (event payload)
-  3. Instantly transition into the appropriate <b>Behavioural</b> State
-
-This separation of responsibilities allows the AI to respond to complex inputs in a <b>modular</b> and <b>maintainable</b> way. Transitions are decoupled from behavior logic, and payload data is passed cleanly through parameters-enabling each Behavioral State to react appropriately without needing to know the source of the trigger.
-
-> ##### TIP
->
-> Maybe add an example of what adding a new state would look like...
-> {: .block-tip}
-
-<h2>
-Behavior Tree
-</h2>
-
-Once the State Tree has determined the current Behavioral State and relative Blackboard values have been updated, the Behavior Tree executes <b> the specific actions</b> needed for that state. It reads the updated <b>Blackboard values</b> to decide which branches to run.
-
-For instance:
-
-- In Neutral, the Behavior Tree might run a patrol route service and idel animations.
-  {% include video.liquid path="assets/video/fia/patrolling.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
-
-- In Search -> Cautious, the AI is directed to move toward the last known clue location slowly, scanning the environment.
-  {% include video.liquid path="assets/video/fia/search-aggresive.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
-
-- In Hostile -> Combat, movement towards the player, attack execeution and target tracking is handled.
-
-By having the State Tree control what state the AI is in and the Behavior Tree handle <b>how</b> that state behaves, the system remains both flexible and focused.
-
-<br>
-<br>
-<br>
-<br>
+---
 
 <h3>
 Custom Perception: Safezone Sense

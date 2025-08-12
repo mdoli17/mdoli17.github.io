@@ -130,6 +130,27 @@ blockquote {
       color: var(--global-danger-block-title);
     }
   }
+
+  &.block-note {
+    border-color: var(--global-note-block);
+    background-color: var(--global-note-block-bg);
+
+    em,
+    li,
+    p,
+    strong {
+      color: var(--global-note-block-text);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--global-note-block-title);
+    }
+  }
 }
 
 // Checklist
@@ -161,7 +182,9 @@ ul.task-list input[type="checkbox"] {
   font-size: 0.875rem;
   margin-top: 0.75rem;
   margin-bottom: 1.5rem;
-  text-align: center;
+  text-align: left;
+  opacity: 0.55;
+  font-style: italic;
 }
 
 // Card

@@ -155,6 +155,8 @@ The State Tree is structured as a hierarchy of `Behavioral` and `Transitional` s
 
 This separation of responsibilities allows the AI to respond to complex inputs in a <b>modular</b> and <b>maintainable</b> way. Transitions are decoupled from behavior logic, and payload data is passed cleanly through parameters-enabling each Behavioral State to react appropriately without needing to know the source of the trigger.
 
+<br>
+
 <h3>
 Event Handling & State Selection
 </h3>
@@ -196,14 +198,74 @@ For example, if the AI is currently in <b>Neutral</b> and receives an <b>OnNoise
 
 This layered approach to event handling not only makes the system easier to maintain but also makes it straightforward to add new event types or states without rewriting existing behaviour logic.
 
+<br>
+
 <h3>
-Parameter Payload Structures
+Parameters - State Group Data
 </h3>
 
-> ##### TIP
->
-> Maybe add an example of what adding a new state would look like...
-> {: .block-tip}
+State Group Data in the State Tree represent the <b>data requirements of a state group</b>. Each Behavioral State defines what information it needs to operate effectively - this data can be <b>used by tasks</b> to execute actions <b>and</b> by <b>state conditions</b> to determine whether a transition into that state is valid.
+
+{% include figure.liquid path="assets/img/projects/fia/state-tree-group-data-usage.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
+
+| Legend | Description                                                                              |
+| :----- | ---------------------------------------------------------------------------------------- |
+| 1      | Parameter for Search Group Data                                                          |
+| 2      | State Group where group data parameter is used.                                          |
+| 3      | Behavioral State which uses group data parameter                                         |
+| 4      | Group Data parameter used as state Enter Condition                                       |
+| 5      | Group data parameter used in state task                                                  |
+| 6      | Alternative version of parameter used for state Enter Condition                          |
+
+<br>
+
+These data are implemented as `USTRUCT`s and exposed as <b>State Tree parameters</b>, making them accessible to both Transitional and Behavioral States. The key principle is that a State Group Data can be <b>populated by a task in any Transitional State</b>, regardless of which event triggered it.
+
+```c++
+USTRUCT(BlueprintType)
+struct FStateTreeGroupData_Search
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="State Group Data")
+	TEnumAsByte<EAlertType> AlertType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="State Group Data")
+	FVector SearchLocation;
+};
+```
+
+For example:
+- FStateTreeGroupData_Search - Stores a search location and an alert type (Cautious, Aggressive). It could be populated after a <b>Sight Lost</b> event, a <b>Noise Heard</b> event, or any future event type that logically leads into a search behavior.
+
+<div class="row mt-3 align-items-stretch">
+  <div class="col-md-6 d-flex flex-column">
+      {% include figure.liquid loading="eager" path="assets/img/projects/fia/state-tree-group-data-populate-1.png" caption="Click to zoom" class="img-fluid rounded z-depth-1"  zoomable=true%}
+  </div>
+  <div class="col-md-6 d-flex flex-column justify-content-between">
+    <div class="md-2 flex-fill">
+        {% include figure.liquid loading="eager" path="assets/img/projects/fia/state-tree-group-data-populate-2.png" caption="Click to zoom" class="img-fluid rounded z-depth-1"  zoomable=true%}
+    </div>
+    <div class="md-2 flex-fill">
+        {% include figure.liquid loading="eager" path="assets/img/projects/fia/state-tree-group-data-populate-3.png" caption="Click to zoom" class="img-fluid rounded z-depth-1"  zoomable=true%}
+    </div>
+  </div>
+</div>
+
+| Legend | Description                                                                              |
+| :----- | ---------------------------------------------------------------------------------------- |
+| 1      | Transitional States, selected from different state tree events, which transition to the same State Group - <b>"Search"</b> |
+| 2      | <b>"Lose Target"</b> Transitional State uses relative event payload where last known location of the target is known, and set's the alert type manually |
+| 3      | <b>"Detect Noise"</b> Transitional state uses relative event payload fully |
+
+<br>
+
+<h4>Workflow</h4>
+  1. A <b>Transitional State</b> is entered after an event is received and allowed by the current Behavioral State.
+  2. Tasks inside the Transitional State <b>populate the required group data(s)</b> for the target Behavioral State Group.
+  3. When the transition completes, the <b>Behavioral State</b> reads its associated group data(s) to validate their selection, set Blackboard values, adjust Controller parameters or execute other tasks.
+
+By designing StateGroupData around <b>state needs</b> rather than event specifics, the system becomes highly flexible - new events can reuse existing payloads, and new state groups or states can be added simply by defining their required data and the tasks that fill it.
 
 ---
 

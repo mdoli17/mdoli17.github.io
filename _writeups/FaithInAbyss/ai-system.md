@@ -180,7 +180,7 @@ Importantly, the <b>currently active Behavioral State</b> defines which Transiti
 
 In most cases, once a valid event is accepted, the AI enters a <b>Transitional State</b>. As mentioned above, these states do not perform active behaviors themselves - instead, they extract and prepare parameters from the event payload (such as a noise location or actor reference) and immediately transition to a <b>Behavioral State</b> that can act on that information.
 
-For example, if the AI is currently in <b>Neutral</b> and receives an <b>OnNoise</b> event, it will first check if the Neutral permits a transition to the <b>Detect Noise</b> transitional state. If allowed, it enters <b>Detect Noise</b>, populates a SearchPayload with the designated search position and alert type, and then transitions to <b>Search</b>. From there, additional decision logic within <b>Search</b> selects appropriate child state, such as <b>Cautious</b> or <b>Aggressive</b>, depending on the payload data.
+For example, if the AI is currently in <b>Neutral</b> and receives an <b>OnNoise</b> event, it will first check if the Neutral permits a transition to the <b>Detect Noise</b> transitional state. If allowed, it enters <b>Detect Noise</b>, populates a SearchGroupData with the designated search position and alert type, and then transitions to <b>Search</b>. From there, additional decision logic within <b>Search</b> selects appropriate child state, such as <b>Cautious</b> or <b>Aggressive</b>, depending on the payload data.
 
 {% include figure.liquid path="assets/img/projects/fia/state-tree-debugger.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 
@@ -189,7 +189,7 @@ For example, if the AI is currently in <b>Neutral</b> and receives an <b>OnNoise
 | 1      | Transition from <b>Neutral</b> to <b>Aggressive</b> search state                         |
 | 2      | State Tree event <b>OnNoise</b> sent from <b>AI Controller</b>                           |
 | 3      | Trigger transition <b>Detect Noise</b> since <b>Neutral</b> state allows it              |
-| 4      | Populate SearchPayload by executing task of the Transitional State                       |
+| 4      | Populate SearchGroupData by executing task of the Transitional State                     |
 | 5      | Immediate transition trigger to the <b>Search</b> State                                  |
 | 6      | Successful check for child <b>Aggressive</b> Behavioral State                            |
 | 7      | Enter <b>Aggressive</b> behavioral state and set Blackboard values by executing its task |

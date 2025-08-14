@@ -208,14 +208,14 @@ State Group Data in the State Tree represent the <b>data requirements of a state
 
 {% include figure.liquid path="assets/img/projects/fia/state-tree-group-data-usage.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
 
-| Legend | Description                                                                              |
-| :----- | ---------------------------------------------------------------------------------------- |
-| 1      | Parameter for Search Group Data                                                          |
-| 2      | State Group where group data parameter is used.                                          |
-| 3      | Behavioral State which uses group data parameter                                         |
-| 4      | Group Data parameter used as state Enter Condition                                       |
-| 5      | Group data parameter used in state task                                                  |
-| 6      | Alternative version of parameter used for state Enter Condition                          |
+| Legend | Description                                                     |
+| :----- | --------------------------------------------------------------- |
+| 1      | Parameter for Search Group Data                                 |
+| 2      | State Group where group data parameter is used.                 |
+| 3      | Behavioral State which uses group data parameter                |
+| 4      | Group Data parameter used as state Enter Condition              |
+| 5      | Group data parameter used in state task                         |
+| 6      | Alternative version of parameter used for state Enter Condition |
 
 <br>
 
@@ -236,6 +236,7 @@ struct FStateTreeGroupData_Search
 ```
 
 For example:
+
 - FStateTreeGroupData_Search - Stores a search location and an alert type (Cautious, Aggressive). It could be populated after a <b>Sight Lost</b> event, a <b>Noise Heard</b> event, or any future event type that logically leads into a search behavior.
 
 <div class="row mt-3 align-items-stretch">
@@ -252,11 +253,11 @@ For example:
   </div>
 </div>
 
-| Legend | Description                                                                              |
-| :----- | ---------------------------------------------------------------------------------------- |
-| 1      | Transitional States, selected from different state tree events, which transition to the same State Group - <b>"Search"</b> |
+| Legend | Description                                                                                                                                             |
+| :----- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1      | Transitional States, selected from different state tree events, which transition to the same State Group - <b>"Search"</b>                              |
 | 2      | <b>"Lose Target"</b> Transitional State uses relative event payload where last known location of the target is known, and set's the alert type manually |
-| 3      | <b>"Detect Noise"</b> Transitional state uses relative event payload fully |
+| 3      | <b>"Detect Noise"</b> Transitional state uses relative event payload fully                                                                              |
 
 <br>
 

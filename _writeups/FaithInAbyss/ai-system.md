@@ -32,6 +32,8 @@ To address this, I chose to combine a <b>State Tree</b> with the Behavior Tree.T
 
 ---
 
+<br>
+
 <h2>
 Architecture Overview
 </h2>
@@ -68,51 +70,159 @@ The <b>EnemyAIController</b> manages how the AI perceives its surroundings using
 
 ---
 
+<br>
+
 <h2>
 AI Controller & Perception
 </h2>
+
+The EnemyAIController servers as the central bridge between the AI's sensory systems and its decision-making logic. It owns the <b>AIPerceptionComponent>, which is configured to handle multiple senses.
 
 <h3>
 Perception Setup
 </h3>
 
-<h4>	
-AIPerceptionComponent Configuration
-</h4>
+- <b>Sight</b> - Detects visible actors within a defined field of view and range.
+- <b>Hearing</b> - Detects noise events, such as thrown objects, player movement, environment interaction, and determines their location and alert level.
+- <b>Safezone</b> - A Custom perception sense that detects when the player enters or leaves speecial areas where hostile actions are restricted.
 
-<h4>	
-Default Senses (Sight, Hearing)
-</h4>
+When the perception system detects or updates a stimulus, the OnTargetPerceptionUpdated callback is triggered. Rather than directly atlering AI behavior, the AI Controller converts the stimulus into a <b>State Tree event</b> identified by a <b>Gameplay Tag</b> and optionally carrying payload data relevant to the event.
 
-<h4>	
-Custom Safe-zone Sense (UAISense_Safezone)
-</h4>
+This data can is then used by the <b>State Tree</b> to select the most appropriate state based on the current situation.
+
+By decoupling perception from direct behavior controler, the AI controller remains <b>modular and maintainable</b> - new senses or event types can be integrated without altering the core behavior logic, simply by defining new events and ensuring the State Tree can receive them.
 
 <h3>
-Event Handling & Communication with State Tree
+Safezone - Custom Sense
 </h3>
 
-<h4>
-OnTargetPerceptionUpdated workflow
-</h4>
+To support gameplay mechanics like protected areas where the player can’t be chased - and to add moments of tension and dramatization - I implemented a custom perception sense called `SafezoneSense`. Unreal’s build-in senses were insufficient for this purpose because of built in senses lacked:
+
+1. The ability to define a custom reporting type
+2. The ability to include <b>additional environmental or context data</b> with a stimulus
+
+Following Unreal's standard pattern for creating custom senses, SafezoneSense is composed of:
+
+- `UAISenseConfig_Safezone` - Configurable settings such as range and filtering
+- `FAISafezoneEvent` - Encapsulates data about the trigger event
+- `FDigestedSafezoneProperties` - Stores listener-specific precessed data, such as detection range
+
+```c++
+USTRUCT(BlueprintType)
+struct FAISafezoneEvent
+{
+	GENERATED_BODY()
+
+    FAISafezoneEvent() : ID(FGuid::NewGuid()), Location(FVector::Zero()), Instigator(nullptr), SafezoneInterfaceObject(nullptr)
+    {
+    }
+
+    FAISafezoneEvent(AActor* InInstigator, const FVector& InLocation, UObject* InSafezoneInterfaceObject);
+
+    typedef class UAISense_Safezone FSenseClass;
+
+    UPROPERTY(BlueprintReadOnly, Category="Sense")
+    FGuid ID;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Sense")
+    FVector Location;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Sense")
+    TObjectPtr<AActor> Instigator;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Sense")
+    TObjectPtr<UObject> SafezoneInterfaceObject;
+};
+```
+
+<br>
 
 <h4>
-Converting FAIStimuli into State Tree Events using FGameplayTags
+Event Data Management
 </h4>
 
-<h4>
-Passing relative payload data structures
-</h4>
+A unique aspect of this implementation is how it handles <b>additional data</b> beyond what <b>FAIStimulus</b> can carry.
+
+FAIStimulus has strict limitations on what data it can store - it only supports a fixed set of fields and cannot directly carry custom complex data.
+Because of this, I implemented a separate system for transferring additional event information.
+
+Each event is:
+
+- Assigned a GUID
+- Stored in a <b>static map</b> keyed by that GUID
+- Given a stimulus where the <b>GUID</b> is stored in the Stimulus.Tag field
+
+When OnTargetPerceptionUpdated is called:
+
+1. The AI Controller Retrieves the complete event data from the static map using the GUID
+2. Sends it to the State Tree as a tagged event
+3. The event is removed from the map to prevent memory buildup
+
+```c++
+// Inside FAISense_Safezone.h
+public:
+    static bool GetSafezoneEvent(FName IdAsName, FAISafezoneEvent& SafezoneEvent)
+    {
+        FGuid ID;
+        FGuid::Parse(IdAsName.ToString(), ID);
+
+        if (!StoredEvents.Contains(ID)) return false;
+        StoredEvents.RemoveAndCopyValue(ID, SafezoneEvent);
+        return true;
+    }
+
+private:
+    static TMap<FGuid, FAISafezoneEvent> StoredEvents;
+
+// ------------------------------------- //
+
+// Inside Update() of UAISense_Safezone.cpp
+for (const FAISafezoneEvent& Event : Events)
+{
+    // Filtering out events using digested property is here
+
+    // Store Event and report stimulus
+    StoredEvents.Add(Event.ID, Event);
+    FAIStimulus Stimulus(*this, 1.f, Event.Location, Listener.CachedLocation, FAIStimulus::SensingSucceeded,
+                            FName(*Event.ID.ToString(EGuidFormats::DigitsWithHyphens)));
+    Listener.RegisterStimulus(Event.Instigator, Stimulus);
+}
+```
+
+<div class="caption">
+    Safezone Event Management
+</div>
+
+<br>
+
+```c++
+// Inside EnemyAIController.cpp
+void AEnemyAIController::HandleSensingSafezone(AActor* SourceActor, const FAIStimulus& Stimulus)
+{
+	FAISafezoneEvent SafezoneEvent;
+	bool EventFound = UAISense_Safezone::GetSafezoneEvent(Stimulus.Tag, SafezoneEvent);
+	if (!EventFound) return;
+
+	FStateTreePayload_Safezone Payload(Stimulus.StimulusLocation, SafezoneEvent.SafezoneInterfaceObject);
+	StateTreeComponent->SendStateTreeEvent(SafezoneEventTag, FConstStructView::Make(Payload));
+}
+```
+
+<div class="caption">
+    Use case inside EnemyAIController
+</div>
+
+<br>
 
 <h4>
-How Transitional States use this payload
+Outcome
 </h4>
 
-<h4>
-Benefits of decoupling perception from behavior logic
-</h4>
+This design preserves Unreal's perception API structure while extending it with <b>rich, context-aware sensing</b> and <b>memory-safe event storage</b>. It also integrates seamleslly with the existing perception -> State Tree -> Behavior Tree flow, requiring no special handling outside the AI Controller and State Tree.
 
 ---
+
+<br>
 
 <h2>
 State Tree - Structure, States and Transitions
@@ -270,6 +380,8 @@ By designing StateGroupData around <b>state needs</b> rather than event specific
 
 ---
 
+<br>
+
 <h2>
 Behavior Tree
 </h2>
@@ -291,219 +403,3 @@ For instance:
   > {: .block-tip}
 
 By having the State Tree control what state the AI is in and the Behavior Tree handle <b>how</b> that state behaves, the system remains both flexible and focused.
-
----
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<h2>
-NEEDS TO BE MANAGED
-</h2>
-
-> ##### NOTE
->
-> The highlighted section shows how the state-tree is notified about an perception event using FGameplayTag and relative Payload Data to the event
-> {: .block-note }
-
-{% tabs a %}
-
-{% tab a Handling Perception Update %}
-{% include figure.liquid loading="eager" path="assets/img/projects/fia/ai-controller-perception-update-handler-highlight.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
-
-{% details Click here to see whole code snippet %}
-
-```c++
-// ---------------------- EnemyAIController.cpp -------------------- //
-void AEnemyAIController::PerceptionUpdateHandler(AActor* Actor, FAIStimulus Stimulus)
-{
-// ID's for each sense
-  const FAISenseID AISenseID_Sight = UAISense::GetSenseID<UAISense_Sight>();
-  const FAISenseID AISenseID_Hearing = UAISense::GetSenseID<UAISense_Hearing>();
-  const FAISenseID AISenseID_Safezone = UAISense::GetSenseID<UAISense_Safezone>();
-
-// Filter out Handler
-  if (Stimulus.Type == AISenseID_Sight)
-  {
-    if (Stimulus.WasSuccessfullySensed())
-      HandleSensingSight(Actor);
-    else
-      HandleLosingSight(Actor);
-  }
-  else if (Stimulus.Type == AISenseID_Hearing)
-  {
-    HandleSensingSound(Stimulus);
-  }
-  else if (Stimulus.Type == AISenseID_Safezone)
-  {
-    HandleSensingSafezone(Actor, Stimulus);
-  }
-}
-
-void AEnemyAIController::HandleSensingSound(FAIStimulus Stimulus) const
-{
-  const FVector StimulusLocation = Stimulus.StimulusLocation;
-
-// Project Location onto a Navigable Location (Example: Sound is reported by a bottle being shattered to a wall)
-  UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
-  if (NavSys == nullptr) return;
-  FNavLocation ProjectedLocation;
-  FVector SearchExtent(500.0f, 500.0f, 500.0f); // TODO: Expose search extent
-
-  if (!NavSys->ProjectPointToNavigation(StimulusLocation, ProjectedLocation, SearchExtent))
-  {
-    UE_LOG(LogTemp, Warning, TEXT("Couldn't find navigable location for sound stimuli"));
-    return;
-  }
-
-// Get payload values
-  int64 AlertTypeValue = StaticEnum<EAlertType>()->GetValueByName(Stimulus.Tag);
-  const EAlertType AlertType = AlertTypeValue == INDEX_NONE ? Cautious : static_cast<EAlertType>(AlertTypeValue);
-
-// Create Payload for NoiseEvent
-  const FStateTreePayload_NoiseEvent Payload(ProjectedLocation.Location, AlertType);
-
-// Notify State Tree about Noise Event
-  StateTreeComponent->SendStateTreeEvent(NoiseEventTag, FConstStructView::Make(Payload));
-}
-
-// ---------------------- EnemyAIController.h -------------------- //
-USTRUCT(BlueprintType)
-struct FStateTreePayload_NoiseEvent
-{
-	GENERATED_BODY()
-
-	// Location where the event has occurred
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Payload")
-	FVector Location;
-
-	// What type of alert is the noise [Cautious, Aggressive]
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Payload")
-	TEnumAsByte<EAlertType> AlertType;
-};
-```
-
-{% enddetails %}
-{% endtab %}
-
-{% tab a Handling State-Tree Events %}
-{% include figure.liquid loading="eager" path="assets/img/projects/fia/state-tree-transitions-highlight.png" caption="Click to zoom" class="img-fluid rounded z-depth-1" zoomable=true %}
-| Legend | Description |
-| :--- | :------------- |
-| 1 | Possible `Transitional` states from current state |
-| 2 | Configuration for OnNoise Event Trigger Transition |
-| 3 | FGameplayTag Identifier for transition |
-| 4 | Payload passed within the State-Tree Event |
-{% endtab %}
-
-{% endtabs %}
-
-This design ensures a clean separation of concerns: the AI Controller handles sensory input and contextual data; the State Tree decides how the AI interprets and reacts to that input; and the Behavior Tree drives the specific actions. This modularity made the system easier to debug and extend. For example, adding new senses or stimuli types didn’t require touching existing behavior or state logic.
-
----
-
-<h3>
-Custom Perception: Safezone Sense
-</h3>
-
-To support gameplay mechanics like protected Safezone where the player can’t be chased, I implemented a custom perception sense called `SafezoneSense`. Unreal’s build-in senses were insufficient for this case [EXPLAIN WHY]
-
-The custom sense follows Unreal’s standard pattern using:
-
-- `UAISenseConfig_Safezone`: configurable settings for perception range and filtering
-- `FAISafezoneEvent`: encapsulates data about the event trigger
-- `FDigestedSafezoneProperties`: stores the processed listener-specific data like range
-
-```c++
-USTRUCT(BlueprintType)
-struct FAISafezoneEvent
-{
-	GENERATED_BODY()
-
-    FAISafezoneEvent() : ID(FGuid::NewGuid()), Location(FVector::Zero()), Instigator(nullptr), SafezoneInterfaceObject(nullptr)
-    {
-    }
-
-    FAISafezoneEvent(AActor* InInstigator, const FVector& InLocation, UObject* InSafezoneInterfaceObject);
-
-    typedef class UAISense_Safezone FSenseClass;
-
-    UPROPERTY(BlueprintReadOnly, Category="Sense")
-    FGuid ID;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Sense")
-    FVector Location;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Sense")
-    TObjectPtr<AActor> Instigator;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Sense")
-    TObjectPtr<UObject> SafezoneInterfaceObject;
-
-};
-
-```
-
-A unique aspect of the implementation is how I handle additional event data beyond what <b>FAIStimulus</b> can carry. I assign a <b>GUID</b> as the tag in the stimulus, and use it as a key to retrieve the actual payload from a <b>static map</b>. When the AI Controller receives the stimulus through `OnTargetPerceptionUpdated`, it uses the <b>GUID</b> to:
-
-1. Retrieve the full event data
-2. Pass the information to the State Tree as a tagged event
-3. Immediately remove the event from the map to avoid memory buildup
-
-<div class="caption">
-    Safezone Event Management
-</div>
-
-```c++
-// Inside FAISense_Safezone.h
-public:
-    static bool GetSafezoneEvent(FName IdAsName, FAISafezoneEvent& SafezoneEvent)
-    {
-        FGuid ID;
-        FGuid::Parse(IdAsName.ToString(), ID);
-
-        if (!StoredEvents.Contains(ID)) return false;
-        StoredEvents.RemoveAndCopyValue(ID, SafezoneEvent);
-        return true;
-    }
-
-private:
-    static TMap<FGuid, FAISafezoneEvent> StoredEvents;
-
-// ------------------------------------- //
-
-// Inside Update() of UAISense_Safezone.cpp
-for (const FAISafezoneEvent& Event : Events)
-{
-    // Filtering out events using digested property is here
-
-    // Store Event and report stimulus
-    StoredEvents.Add(Event.ID, Event);
-    FAIStimulus Stimulus(*this, 1.f, Event.Location, Listener.CachedLocation, FAIStimulus::SensingSucceeded,
-                            FName(*Event.ID.ToString(EGuidFormats::DigitsWithHyphens)));
-    Listener.RegisterStimulus(Event.Instigator, Stimulus);
-}
-```
-
-<div class="caption">
-    Use case inside EnemyAIController
-</div>
-
-```c++
-// Inside EnemyAIController.cpp
-void AEnemyAIController::HandleSensingSafezone(AActor* SourceActor, const FAIStimulus& Stimulus)
-{
-	FAISafezoneEvent SafezoneEvent;
-	bool EventFound = UAISense_Safezone::GetSafezoneEvent(Stimulus.Tag, SafezoneEvent);
-	if (!EventFound) return;
-
-	FStateTreePayload_Safezone Payload(Stimulus.StimulusLocation, SafezoneEvent.SafezoneInterfaceObject);
-	StateTreeComponent->SendStateTreeEvent(SafezoneEventTag, FConstStructView::Make(Payload));
-}
-```
-
-This approach allowed me to preserve Unreal’s perception API structure while extending it with robust, memory-safe event data flow.

@@ -61,9 +61,19 @@ ninja.data = [{
               window.location.href = "/projects/MageDemo/";
             },},{id: "showcases-stealth-prototype-ai-system-showcase",
           title: 'Stealth Prototype - AI System Showcase',
-          description: "",
+          description: "Description of the AI system showcase, here You can Write everything you like to have",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/stealth-prototype-ai-system/";
+            },},{id: "showcases-test-showcase-1",
+          title: 'test-showcase-1',
+          description: "Description of the test showcase, here You can Write everything you like to have",
+          section: "Showcases",handler: () => {
+              window.location.href = "/showcases/test-showcase-1/";
+            },},{id: "showcases-test-showcase",
+          title: 'test-showcase',
+          description: "Description of the test showcase, here You can Write everything you like to have",
+          section: "Showcases",handler: () => {
+              window.location.href = "/showcases/test-showcase/";
             },},{id: "writeups-ability-system",
           title: 'Ability System',
           description: "Implementation of Ability System in Faith in Abyss",

@@ -3,7 +3,7 @@
   Each post must have: project: slug
 {% endcomment %}
 
-{% assign writeups = site.writeups | where: 'project', page.slug | sort: "priority" %}
+{% assign writeups = site.writeups | where: 'project', page.slug | sort: 'priority' %}
 
 {% if writeups.size > 0 %}
   <div class="post">

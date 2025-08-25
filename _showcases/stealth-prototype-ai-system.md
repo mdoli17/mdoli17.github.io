@@ -6,7 +6,7 @@ description: |
   The system integrates extended perception with layered state and behavior tree management, enabling enemies to patrol,
   search, and chase in response to player actions. <br>
   <br>
-  Additional features like Safezones and a GUID-based payload event system extend Unreal's perception API, providing context-aware, modular logic to support engaging stealth gameplay.  
+  Additional features like Safezones and a GUID-based payload event system extend Unreal's perception API, providing context-aware, modular logic to support engaging stealth gameplay.
 project: faith-in-abyss
 writeup: ai-system-overview
 priority: 1

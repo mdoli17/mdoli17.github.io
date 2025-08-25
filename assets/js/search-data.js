@@ -43,7 +43,7 @@ ninja.data = [{
           title: 'Alpaca Dash',
           description: "Thrilling alpaca racing game",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/AlpacaDash/";
+              window.location.href = "/projects/alpaca-dash/";
             },},{id: "projects-defi-land",
           title: 'DeFi Land',
           description: "Thrilling farming game",
@@ -59,9 +59,14 @@ ninja.data = [{
           description: "Project to showcase mage abilities",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MageDemo/";
-            },},{id: "showcases-stealth-prototype-ai-system-showcase",
-          title: 'Stealth Prototype - AI System Showcase',
-          description: "Description of the AI system showcase, here You can Write everything you like to have",
+            },},{id: "showcases-thrilling-alpaca-racing",
+          title: 'Thrilling Alpaca Racing',
+          description: "Description of the test showcase, here You can Write everything you like to have",
+          section: "Showcases",handler: () => {
+              window.location.href = "/showcases/alpaca-dash-showcase/";
+            },},{id: "showcases-stealth-game-prototype",
+          title: 'Stealth Game Prototype',
+          description: "A 2-minute overview of my custom AI system for a stealth prototype. The system integrates extended perception with layered state and behavior tree management, enabling enemies to patrol,search, and chase in response to player actions. Additional features like Safezones and a GUID-based payload event system extend Unreal&#39;s perception API, providing context-aware, modular logic to support engaging stealth gameplay.",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/stealth-prototype-ai-system/";
             },},{id: "showcases-test-showcase-1",
@@ -69,11 +74,6 @@ ninja.data = [{
           description: "Description of the test showcase, here You can Write everything you like to have",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/test-showcase-1/";
-            },},{id: "showcases-test-showcase",
-          title: 'test-showcase',
-          description: "Description of the test showcase, here You can Write everything you like to have",
-          section: "Showcases",handler: () => {
-              window.location.href = "/showcases/test-showcase/";
             },},{id: "writeups-ability-system",
           title: 'Ability System',
           description: "Implementation of Ability System in Faith in Abyss",

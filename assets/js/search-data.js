@@ -59,16 +59,21 @@ ninja.data = [{
           description: "Project to showcase mage abilities",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MageDemo/";
+            },},{id: "showcases-stealth-prototype-ai-system-showcase",
+          title: 'Stealth Prototype - AI System Showcase',
+          description: "",
+          section: "Showcases",handler: () => {
+              window.location.href = "/showcases/stealth-prototype-ai-system/";
             },},{id: "writeups-ability-system",
           title: 'Ability System',
           description: "Implementation of Ability System in Faith in Abyss",
           section: "Writeups",handler: () => {
               window.location.href = "/projects/faith-in-abyss/ability-system/";
-            },},{id: "writeups-implementing-ai-logic",
-          title: 'Implementing AI Logic',
+            },},{id: "writeups-ai-system-overview",
+          title: 'AI System Overview',
           description: "Implementation of AI System in Faith in Abyss",
           section: "Writeups",handler: () => {
-              window.location.href = "/projects/faith-in-abyss/ai-system/";
+              window.location.href = "/projects/faith-in-abyss/ai-system-overview/";
             },},{
         id: 'social-email',
         title: 'email',

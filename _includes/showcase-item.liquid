@@ -1,0 +1,46 @@
+<article class="showcase-item">
+  <h3 class="showcase-item-title">{{ include.item.title }}</h3>
+
+  {% if include.item.embed %}
+    {% assign source = 'https://www.youtube.com/embed/' | append: include.item.embed.id %}
+    {% if include.item.embed.hideRel %}
+      {% assign source = source | append: '?rel=0' %}
+    {% endif %}
+
+    <div class="video-container">
+      <iframe
+        width="560"
+        height="315"
+        src="{{ source }}"
+        title="{{ include.item.title | escape }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      >
+      </iframe>
+    </div>
+  {% endif %}
+
+  <div class="showcase-links">
+    {% if include.item.project %}
+      {% assign project = include.item.project | to_s | strip %}
+      {% assign matchedProject = site.projects | where: 'slug', project | first %}
+      {% if matchedProject %}
+        <span>Project: </span>
+        <a href="{{ matchedProject.url | relative_url }}">{{ matchedProject.title }}</a>
+      {% endif %}
+    {% endif %}
+
+    <br>
+
+    {% if include.item.writeup %}
+      {% assign writeup = include.item.writeup %}
+      {% assign matchedWriteup = site.writeups | where: 'slug', writeup | first %}
+      {% if matchedWriteup %}
+        <span>Writeup: </span>
+        <a href="{{ matchedWriteup.id }}">{{ matchedWriteup.title }}</a>
+      {% endif %}
+    {% endif %}
+  </div>
+</article>

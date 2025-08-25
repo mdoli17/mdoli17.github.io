@@ -1,11 +1,12 @@
 ---
-title: Implementing AI Logic
+title: AI System Overview
 description: Implementation of AI System in Faith in Abyss
 project: faith-in-abyss
+slug: ai-system-overview
 thumbnail: assets/img/3.jpg
 priority: 1
 layout: page
-permalink: /projects/faith-in-abyss/:name/
+permalink: /projects/faith-in-abyss/:title/
 tabs: true
 toc:
   sidebar: right

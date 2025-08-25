@@ -156,6 +156,8 @@ collections:
     output: true
     defaults:
       layout: page
+  showcases:
+    output: false
 
 # -----------------------------------------------------------------------------
 # Jekyll settings

@@ -64,6 +64,15 @@ layout: default
       {% include selected_papers.liquid %}
     {% endif %}
 
+    <section id="showcases">
+      <h2>Showcases</h2>
+
+      {% assign items = site.showcases %}
+      {% for i in items %}
+        {% include showcase-item.liquid item=i %}
+      {% endfor %}
+    </section>
+
     <!-- Social -->
     {% if page.social %}
       <div class="social">

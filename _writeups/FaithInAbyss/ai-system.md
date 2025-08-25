@@ -20,10 +20,10 @@ pretty_table: true
 ---
 
 <h2>
-AI System Overview
+Overview
 </h2>
 
-In this project, the AI system is designed to create reactive and believable enemy vehavior while keeping the underlying logic <b>modular</b>, <b>maintanable, and easy to extend.</b> Its purpose is to manage how enemies perceive the world, decide their current state, and execute appropriate actions in real time.
+In this project, the AI system is designed to create reactive and believable enemy behavior while keeping the underlying logic <b>modular</b>, <b>maintanable, and easy to extend.</b> Its purpose is to manage how enemies perceive the world, decide their current state, and execute appropriate actions in real time.
 
 Gameplay-wise, I took inspiration from the <b>unpredictable and relentless enemy encounters</b> in <i>Outlast</i>, and the <b>tense, location-driven threat dynamics</b> of the series <i>From</i>. Both emphasize the importance of enemies that react believably to the player's actions and surroundings, which informed my focus on clear state transitions and context-driven behaviors.
 
@@ -36,7 +36,7 @@ To address this, I chose to combine a <b>State Tree</b> with the Behavior Tree.T
 <br>
 
 <h2>
-Architecture Overview
+Architecture
 </h2>
 
 <h3>

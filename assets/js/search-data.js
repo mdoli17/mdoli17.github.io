@@ -23,23 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "books-the-godfather",
-          title: 'The Godfather',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_godfather/";
-            },},{id: "news-a-simple-inline-announcement",
-          title: 'A simple inline announcement.',
-          description: "",
-          section: "News",},{id: "news-a-long-announcement-with-details",
-          title: 'A long announcement with details',
-          description: "",
-          section: "News",handler: () => {
-              window.location.href = "/news/announcement_2/";
-            },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
-          title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
-          description: "",
-          section: "News",},{id: "projects-alpaca-dash",
+        },{id: "projects-alpaca-dash",
           title: 'Alpaca Dash',
           description: "Thrilling alpaca racing game",
           section: "Projects",handler: () => {
@@ -63,17 +47,17 @@ ninja.data = [{
           title: 'Thrilling Alpaca Racing',
           description: "Description of the test showcase, here You can Write everything you like to have",
           section: "Showcases",handler: () => {
-              window.location.href = "/showcases/alpaca-dash-showcase/";
+              window.location.href = "/showcases/alpaca-dash-showcase.html";
             },},{id: "showcases-stealth-game-prototype",
           title: 'Stealth Game Prototype',
           description: "A 2-minute overview of my custom AI system for a stealth prototype. The system integrates extended perception with layered state and behavior tree management, enabling enemies to patrol,search, and chase in response to player actions. Additional features like Safezones and a GUID-based payload event system extend Unreal&#39;s perception API, providing context-aware, modular logic to support engaging stealth gameplay.",
           section: "Showcases",handler: () => {
-              window.location.href = "/showcases/stealth-prototype-ai-system/";
+              window.location.href = "/showcases/stealth-prototype-ai-system.html";
             },},{id: "showcases-test-showcase-1",
           title: 'test-showcase-1',
           description: "Description of the test showcase, here You can Write everything you like to have",
           section: "Showcases",handler: () => {
-              window.location.href = "/showcases/test-showcase-1/";
+              window.location.href = "/showcases/test-showcase-1.html";
             },},{id: "writeups-ability-system",
           title: 'Ability System',
           description: "Implementation of Ability System in Faith in Abyss",
@@ -85,41 +69,6 @@ ninja.data = [{
           section: "Writeups",handler: () => {
               window.location.href = "/projects/faith-in-abyss/ai-system-overview/";
             },},{
-        id: 'social-email',
-        title: 'email',
-        section: 'Socials',
-        handler: () => {
-          window.open("mailto:%6D%61%74%65.%64%6F%6C%69%64%7A%65%31@%67%6D%61%69%6C.%63%6F%6D", "_blank");
-        },
-      },{
-        id: 'social-github',
-        title: 'GitHub',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://github.com/mdoli17", "_blank");
-        },
-      },{
-        id: 'social-linkedin',
-        title: 'LinkedIn',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://www.linkedin.com/in/matedolidze", "_blank");
-        },
-      },{
-        id: 'social-scholar',
-        title: 'Google Scholar',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://scholar.google.com/citations?user=qc6CJjYAAAAJ", "_blank");
-        },
-      },{
-        id: 'social-artstation',
-        title: 'Artstation',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://www.artstation.com/matedolidze", "_blank");
-        },
-      },{
       id: 'light-theme',
       title: 'Change theme to light',
       description: 'Change the theme of the site to Light',

@@ -1,11 +1,11 @@
 ---
-title: Alpaca Dash - Showcase
+title: DeFi-Land Showcase
 description: TODO - Instead of gameplay, add a showcase video when it's complete
-project: alpaca-dash
+project: defi-land
 # TODO: Add writeup which shows engineering skill's after it's complete
-priority: 2
+priority: 3
 
 embed:
-  id: eKRgoRmziBs
+  id: SHbRUh5vMK8
   hideRel: true
 ---

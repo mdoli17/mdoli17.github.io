@@ -2,7 +2,7 @@
 layout: page
 title: Stealth Game Prototype
 description: Faith In Abyss
-img: assets/img/12.jpg
+img: assets/img/projects/fia/background.png
 importance: 1
 category: Unreal
 slug: faith-in-abyss

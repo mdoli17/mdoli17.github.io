@@ -1,6 +1,6 @@
 ---
 title: AI System Overview
-description: Implementation of AI System in Faith in Abyss
+description: Detailed analysis of stealth mechanics and AI system
 project: faith-in-abyss
 slug: ai-system-overview
 thumbnail: assets/img/3.jpg

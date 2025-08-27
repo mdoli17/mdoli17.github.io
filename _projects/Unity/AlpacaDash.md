@@ -2,7 +2,7 @@
 layout: page
 title: Alpaca Dash
 description: Thrilling alpaca racing game
-img: assets/img/12.jpg
+img: assets/img/projects/alpaca-dash/background.png
 importance: 1
 category: Unity
 slug: alpaca-dash

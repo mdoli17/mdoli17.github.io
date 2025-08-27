@@ -16,5 +16,3 @@ Project to showcase work on Faith in Abyss
 > {: .block-tip}
 
 {% include project_writeups.liquid project_slug=page.slug %}
-
-

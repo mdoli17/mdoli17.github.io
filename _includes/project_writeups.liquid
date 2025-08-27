@@ -1,8 +1,4 @@
-{% comment %}
-  Usage: {% include project_writeups.liquid project_slug=page.slug %}
-  Each post must have: project: slug
-{% endcomment %}
-
+<h3>Writeups</h3>
 {% assign writeups = site.writeups | where: 'project', page.slug | sort: 'priority' %}
 
 {% if writeups.size > 0 %}

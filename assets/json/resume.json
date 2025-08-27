@@ -6,7 +6,7 @@
     "email": "mate.dolidze1@gmail.com",
     "summary": "TODO: Write small summary about me"
   },
-  
+
   "projects": [
     {
       "name": "Stealth Game Prototype",
@@ -21,12 +21,7 @@
     {
       "name": "Mage Ability Prototype",
       "summary": "First-person mage demo showcasing a custom C++ ability system with projectile attacks, ability cooldowns, and animation-driven logic for responsive combat.",
-      "highlights": [
-        "Custom Ability Framework",
-        "Animation-Driven Logic",
-        "Ability Variety",
-        "First-Person Character"
-      ]
+      "highlights": ["Custom Ability Framework", "Animation-Driven Logic", "Ability Variety", "First-Person Character"]
     }
   ],
   "work": [

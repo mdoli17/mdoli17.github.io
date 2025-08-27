@@ -18,7 +18,7 @@ ninja.data = [{
           },
         },{id: "nav-resume",
           title: "Resume",
-          description: "This is a description of the page. You can modify it in &#39;_pages/cv.md&#39;. You can also change or remove the top pdf download button.",
+          description: "",
           section: "Navigation",
           handler: () => {
             window.location.href = "/resume/";
@@ -32,7 +32,7 @@ ninja.data = [{
           title: 'DeFi Land',
           description: "Thrilling farming game",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/DeFiLand/";
+              window.location.href = "/projects/defi-land/";
             },},{id: "projects-stealth-game-prototype",
           title: 'Stealth Game Prototype',
           description: "Faith In Abyss",
@@ -43,31 +43,31 @@ ninja.data = [{
           description: "Project to showcase mage abilities",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MageDemo/";
-            },},{id: "showcases-thrilling-alpaca-racing",
-          title: 'Thrilling Alpaca Racing',
-          description: "Description of the test showcase, here You can Write everything you like to have",
+            },},{id: "showcases-alpaca-dash-showcase",
+          title: 'Alpaca Dash - Showcase',
+          description: "TODO - Instead of gameplay, add a showcase video when it&#39;s complete",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/alpaca-dash-showcase.html";
+            },},{id: "showcases-defi-land-showcase",
+          title: 'DeFi-Land Showcase',
+          description: "TODO - Instead of gameplay, add a showcase video when it&#39;s complete",
+          section: "Showcases",handler: () => {
+              window.location.href = "/showcases/defi-land-showcase.html";
             },},{id: "showcases-stealth-game-prototype",
           title: 'Stealth Game Prototype',
           description: "A 2-minute overview of my custom AI system for a stealth prototype. The system integrates extended perception with layered state and behavior tree management, enabling enemies to patrol,search, and chase in response to player actions. Additional features like Safezones and a GUID-based payload event system extend Unreal&#39;s perception API, providing context-aware, modular logic to support engaging stealth gameplay.",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/stealth-prototype-ai-system.html";
-            },},{id: "showcases-test-showcase-1",
-          title: 'test-showcase-1',
-          description: "Description of the test showcase, here You can Write everything you like to have",
-          section: "Showcases",handler: () => {
-              window.location.href = "/showcases/test-showcase-1.html";
-            },},{id: "writeups-ability-system",
-          title: 'Ability System',
-          description: "Implementation of Ability System in Faith in Abyss",
-          section: "Writeups",handler: () => {
-              window.location.href = "/projects/faith-in-abyss/ability-system/";
             },},{id: "writeups-ai-system-overview",
           title: 'AI System Overview',
-          description: "Implementation of AI System in Faith in Abyss",
+          description: "Detailed analysis of stealth mechanics and AI system",
           section: "Writeups",handler: () => {
               window.location.href = "/projects/faith-in-abyss/ai-system-overview/";
+            },},{id: "writeups-item-management",
+          title: 'Item Management',
+          description: "Implementation and design of the inventory and item system",
+          section: "Writeups",handler: () => {
+              window.location.href = "/projects/faith-in-abyss/item-management/";
             },},{
       id: 'light-theme',
       title: 'Change theme to light',

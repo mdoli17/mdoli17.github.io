@@ -1,20 +1,21 @@
 ---
 title: Race Track Generation in Alpaca Dash
 description: >
-    Pipeline, Bezier Splines, Mesh Generation
+  Pipeline, Bezier Splines, Mesh Generation
 layout: post
 thumbnail: assets/img/projects/alpaca-dash/red-rock-cliffs-background.png
 priority: 1
 toc:
-    sidebar: right
+  sidebar: right
 images:
-    compare: true
-    slider: true
+  compare: true
+  slider: true
 ---
 
 One of the core systems in <i>Alpaca Dash</i> was our <b>procedural race track generation pipeline</b>. We wanted each race to feel unique-some tracks tight and technical, others straight and fast-while still producing meshes clean enough for our artists to build environments around.
 
 On this system:
+
 - I helped <b>design the pipeline</b>
 - Implemented <b>custom bezier</b> and <b>mesh generation</b> with my senior
 - <b>Created editor tools</b> for artists to easily configure track visuals
@@ -28,6 +29,7 @@ On this system:
 <br>
 
 The process begins with our custom <b>Bezier Spline</b> defining the track contour. Designers adjust control points to emphasize different dynamics:
+
 - Corner-heavy -> technical tracks
 - Balanced -> mix of straights & corners
 - Straight-dominant -> speedways
@@ -80,7 +82,7 @@ public IEnumerable Generate(RaceTrack raceTrackData) {
     var normals = new List<Vector3>();
     var uvs = new List<Vector2>();
     var triangles = new List<int>();
-    
+
     ...
 }
 ```
@@ -148,6 +150,7 @@ This guarantess fair placement (avoiding blind turns) while still making tracks 
 <br>
 
 By combining
+
 - Bezier Splines, tangent vectors, cosine thresholds
 - Adaptive mesh subdivision, lane offset, obstacle placement
 - Blender Integration and handcrafted environments

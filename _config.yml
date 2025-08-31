@@ -51,10 +51,6 @@ max_width: 1680px
 pagination:
   enabled: true
 
-# External sources.
-# If you have blog posts published on medium.com or other external sources,
-# you can display them in your blog by adding a link to the RSS feed.
-
 # -----------------------------------------------------------------------------
 # Collections
 # -----------------------------------------------------------------------------
@@ -69,6 +65,9 @@ collections:
       layout: page
   showcases:
     output: false
+  articles:
+    output: true
+    permalink: /articles/:title/
 
 # -----------------------------------------------------------------------------
 # Jekyll settings

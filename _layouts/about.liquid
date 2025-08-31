@@ -48,6 +48,18 @@ layout: default
       {% endfor %}
     </section>
 
+    <section id="articles">
+      <h2>ARTICLES</h2>
+      {% assign articles = site.articles | sort: 'priority' %}
+      <div class="container">
+        <div class="row row-cols-1 row-cols-md-5">
+          {% for article in articles %}
+            {% include article-item.liquid item=article %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
     <!-- Social -->
     {% if page.social %}
       <div class="social">

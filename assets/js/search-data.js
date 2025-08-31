@@ -23,7 +23,27 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "projects-alpaca-dash",
+        },{id: "articles-race-track-generation-in-alpaca-dash",
+          title: 'Race Track Generation in Alpaca Dash',
+          description: "Description for race track generation in alpaca dash",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/1/";
+            },},{id: "articles-race-track-generation-in-alpaca-dash",
+          title: 'Race Track Generation in Alpaca Dash',
+          description: "Description for race track generation in alpaca dash",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/2/";
+            },},{id: "articles-race-track-generation-in-alpaca-dash",
+          title: 'Race Track Generation in Alpaca Dash',
+          description: "Description for race track generation in alpaca dash",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/3/";
+            },},{id: "articles-race-track-generation-in-alpaca-dash",
+          title: 'Race Track Generation in Alpaca Dash',
+          description: "Pipeline, Bezier Splines, Mesh Generation",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/race-track-generation/";
+            },},{id: "projects-alpaca-dash",
           title: 'Alpaca Dash',
           description: "Thrilling alpaca racing game",
           section: "Projects",handler: () => {

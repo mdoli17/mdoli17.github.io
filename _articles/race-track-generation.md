@@ -9,7 +9,7 @@ toc:
   - name: Map Creation Pipeline
   - name: Track Mesh Generation from Spline
     subsections:
-        - name: Multi-Lane Tracks
+      - name: Multi-Lane Tracks
   - name: Procedural Obstacles
   - name: Conclusion
 images:
@@ -118,6 +118,7 @@ public enum UVMode {
 ```
 
 When generating each ring, the laneWidth is adjusted based on the selection mode:
+
 ```c#
 void addRing(float t, int laneId, bool isFirstRing, Color vertexColor) {
                 var laneWidth = raceTrackData.LaneWidth * (1.0f + meshGenerationSettings.TrackOverlapSize *
@@ -131,11 +132,11 @@ This gives artists and designers control over the look of the track for each map
 {% tabs uvmode %}
 
 {% tab uvmode per-lane %}
-    {% include figure.liquid path="assets/img/projects/alpaca-dash/track-generation-uv-lane.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+{% include figure.liquid path="assets/img/projects/alpaca-dash/track-generation-uv-lane.png" class="img-fluid rounded z-depth-1" zoomable=true %}
 {% endtab %}
 
 {% tab uvmode unify-lanes %}
-    {% include figure.liquid path="assets/img/projects/alpaca-dash/track-generation-uv-unify.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+{% include figure.liquid path="assets/img/projects/alpaca-dash/track-generation-uv-unify.png" class="img-fluid rounded z-depth-1" zoomable=true %}
 {% endtab %}
 
 {% endtabs %}
@@ -153,10 +154,11 @@ Obstacles are generated as <b>virtual sub-meshes</b> during track build. Each ra
 Instead of spawning separate meshes, we treat obstacle spans as <b>submesh index ranges</b>. This lets us assign a different material per segment while keeping the track a single mesh.
 
 {% details Show code: Building obstacle submeshes and blend margins %}
+
 ```c#
     var subMeshes = new List<UnityEngine.Rendering.SubMeshDescriptor>();
     var blendSize = obstacleBlendSize / raceTrackData.Length;
-    
+
     // Loop for material & segment list key-pair
     foreach (var segments in segmentsPerType) {
         // Loop for lane & segment key-pair
@@ -190,6 +192,7 @@ Instead of spawning separate meshes, we treat obstacle spans as <b>submesh index
     var mesh = new UnityEngine.Mesh() { /* Pass vertices, colors, normals, uv, triangles */ };
     mesh.SetSubMeshes(subMeshes);
 ```
+
 {% enddetails %}
 
 The visuals are fully customizable: the <b>track material</b> and <b>obstacle material</b> are blended in the shader, with per-segment parameters driven via `MaterialPropertyBlock`.

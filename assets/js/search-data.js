@@ -27,17 +27,17 @@ ninja.data = [{
           title: 'Race Track Generation in Alpaca Dash',
           description: "Description for race track generation in alpaca dash",
           section: "Articles",handler: () => {
-              window.location.href = "/articles/1/";
-            },},{id: "articles-race-track-generation-in-alpaca-dash",
-          title: 'Race Track Generation in Alpaca Dash',
-          description: "Description for race track generation in alpaca dash",
-          section: "Articles",handler: () => {
               window.location.href = "/articles/2/";
             },},{id: "articles-race-track-generation-in-alpaca-dash",
           title: 'Race Track Generation in Alpaca Dash',
           description: "Description for race track generation in alpaca dash",
           section: "Articles",handler: () => {
               window.location.href = "/articles/3/";
+            },},{id: "articles-item-management-system-in-stealth-prototype",
+          title: 'Item Management System in Stealth Prototype',
+          description: "Description of Item System",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/item-management-system/";
             },},{id: "articles-race-track-generation-in-alpaca-dash",
           title: 'Race Track Generation in Alpaca Dash',
           description: "Pipeline, Bezier Splines, Mesh Generation",
@@ -83,11 +83,6 @@ ninja.data = [{
           description: "Detailed analysis of stealth mechanics and AI system",
           section: "Writeups",handler: () => {
               window.location.href = "/projects/faith-in-abyss/ai-system-overview/";
-            },},{id: "writeups-item-management",
-          title: 'Item Management',
-          description: "Implementation and design of the inventory and item system",
-          section: "Writeups",handler: () => {
-              window.location.href = "/projects/faith-in-abyss/item-management/";
             },},{
       id: 'light-theme',
       title: 'Change theme to light',

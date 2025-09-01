@@ -4,14 +4,20 @@ description: Description of Item System
 layout: distill
 thumbnail: assets/img/1.jpg
 priority: 2
+
 toc:
-- name: Overview
-- name: Design Goals
-- name: Architecture
-- name: Implementation Highlights
-- name: Example - Health Potion
-- name: Future Improvements
-- name: Conclusion
+  - name: Overview
+  - name: Design Goals
+  - name: Architecture
+  - name: In Action
+    subsections:
+        - name: Data-driven Definitions
+        - name: Separation of data vs runtime
+        - name: Extensibility
+  - name: Example - Health Potion
+  - name: Future Improvements
+  - name: Conclusion
+
 ---
 
 ## Overview
@@ -43,7 +49,19 @@ In my <b>Stealth Prototype</b> project, to let the player explore the environmen
 
 ---
 
-## Implementation Highlights
+## In Action
+
+### Data-driven Definitions
+
+A key design choice was to make the system <b>data-driven</b>. Every item is defined in a `UItemDataAsset`, so creating something new-whether a potion, a key, or a equipable-doesn't require touching C++ code.
+
+### Separation of data vs runtime
+
+The system also enforces a clear <b>separation between data and runtime</b>. Assets only store static information like, name, type, weight, while the `UInventoryComponent` manages dynamic logic such as transfering items.
+
+### Extensibility
+
+This structure makes the framework naturally <b>extensible</b>. Consumables, quest items, and equipment all share the same flow, so expanding the item set only requires adding assets, not rewriting core systems.
 
 ---
 

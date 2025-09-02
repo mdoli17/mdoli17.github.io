@@ -22,8 +22,8 @@ toc:
 
 In my <b>Stealth Prototype</b> project, to let the player explore the environment, interact with objects, and manage resources, I designed a <b>modular Item System</b> that could scale with new item types while staying simple to use. The focus was on <b>maintainability and flexibility</b> for a stealth-driven, resource-management prototype.
 
-
 {% include figure.liquid path="assets/img/projects/fia/item-system.gif" class="img-fluid rounded z-depth-1" zoomable=true%}
+
 <p class="caption">Click to zoom</p>
 
 ---
@@ -39,6 +39,7 @@ In my <b>Stealth Prototype</b> project, to let the player explore the environmen
 ## Architecture
 
 {% include figure.liquid path="assets/img/projects/fia/item-system-flow.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+
 <p class="caption">Click to zoom</p>
 
 - `FItemData` → `UStruct` that describes the item (id, name, description, weight, mesh, icon)

@@ -33,9 +33,9 @@ ninja.data = [{
           description: "Description for race track generation in alpaca dash",
           section: "Articles",handler: () => {
               window.location.href = "/articles/3/";
-            },},{id: "articles-item-management-system-in-stealth-prototype",
-          title: 'Item Management System in Stealth Prototype',
-          description: "Description of Item System",
+            },},{id: "articles-data-driven-item-system-in-stealth-prototype",
+          title: 'Data-Driven Item System in Stealth Prototype',
+          description: "DataAssets, DataTables, Inventory Component",
           section: "Articles",handler: () => {
               window.location.href = "/articles/item-management-system/";
             },},{id: "articles-race-track-generation-in-alpaca-dash",

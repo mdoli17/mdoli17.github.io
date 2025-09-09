@@ -61,7 +61,7 @@ float UVisionModelComponent:CalculateVisibilityWeight(const AActor* Target) cons
 
 The resulting weight is used to <b>increament and awareness score over time</b>. Only when awareness passes relative thresholds does the AI escalate from <i>Suspicious → Searching → Detected</i>.
 
-[Full Implementation available on GitHub →](https://github.com/mdoli17/)
+[Full Implementation available on GitHub →](https://github.com/mdoli17/code-samples/tree/main/Unreal/Vision%20Model)
 
 ## Smooth Cone Tracking
 

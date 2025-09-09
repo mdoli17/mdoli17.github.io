@@ -6,15 +6,14 @@ thumbnail: assets/img/1.jpg
 priority: 3
 
 toc:
-- name: Introduction
-- name: Problem with Default Vision
-- name: Vision Model Overview
-- name: Core Math - Target Weight Calculation
-- name: Smooth Cone Tracking
-- name: Integration with AI Framework
-- name: Gameplay Impact
-- name: Closing
-    
+  - name: Introduction
+  - name: Problem with Default Vision
+  - name: Vision Model Overview
+  - name: Core Math - Target Weight Calculation
+  - name: Smooth Cone Tracking
+  - name: Integration with AI Framework
+  - name: Gameplay Impact
+  - name: Closing
 ---
 
 ## Introduction
@@ -24,6 +23,7 @@ In stealth gameplay, vision is more than a simple on/off switch. Binary detectio
 This system introduces <b>smooth vision cone tracking</b>, a <b>target weight scoring model</b>, and <b>progressive awareness buildup</b>, all fully integrated into my AI framework.
 
 ## Problem with Default Vision
+
 Unreal's built-in sight perception works, but it is limited:
 
 - Detection is instantaneous and binary
@@ -43,7 +43,7 @@ The Vision Model Component calculates a <i>weight</b> for each visible target an
 > ##### TODO
 >
 > Show footage of player being noticed, investigated and finally searched
-{: .block-tip}
+> {: .block-tip}
 
 ## Core Math - Target Weight Calculation
 
@@ -63,7 +63,6 @@ The resulting weight is used to <b>increament and awareness score over time</b>.
 
 [Full Implementation available on GitHub →](https://github.com/mdoli17/)
 
-
 ## Smooth Cone Tracking
 
 The vision cone is aligned with the AI's head orientation rather than snapping directly the the player. This keeps perception grounded in animations and makes AI feel more lifelike.
@@ -71,11 +70,12 @@ The vision cone is aligned with the AI's head orientation rather than snapping d
 > ##### TODO
 >
 > Show difference between Default UE sight, which snaps instantly, and Custom smooth cone tracking
-{: .block-tip}
+> {: .block-tip}
 
 ## Integration with AI Framework
 
 The system ties into Unreal's AI stack:
+
 - Vision Model Component: Broadcasts events for getting a clue, detecting or losing target
 - AI Controller: Updates handles vision model events and notifies State Tree using State Tree Events
 - State Tree: Handles high-level transitions like <i> Neutral → Search → Hostile<i>
@@ -94,4 +94,3 @@ This creates more <b>dynamic, believable stealth encounters.</b>
 ## Closing
 
 By extending Unreal's perception with math-driven awareness, I made stealth encounters <b>less binary and more immersive</b>. This project shows how <b>custom systems, math, and AI frameworks</b> can combine to improve player experience in systemic gameplay.
-

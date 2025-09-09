@@ -27,12 +27,12 @@ ninja.data = [{
           title: 'Race Track Generation in Alpaca Dash',
           description: "Description for race track generation in alpaca dash",
           section: "Articles",handler: () => {
-              window.location.href = "/articles/2/";
-            },},{id: "articles-race-track-generation-in-alpaca-dash",
-          title: 'Race Track Generation in Alpaca Dash',
-          description: "Description for race track generation in alpaca dash",
-          section: "Articles",handler: () => {
               window.location.href = "/articles/3/";
+            },},{id: "articles-improving-sight-perception-in-stealth-prototype",
+          title: 'Improving Sight Perception in Stealth Prototype',
+          description: "Awareness Scoring, Vision Cone, State Integration",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/improving-sight-perception/";
             },},{id: "articles-data-driven-item-system-in-stealth-prototype",
           title: 'Data-Driven Item System in Stealth Prototype',
           description: "DataAssets, DataTables, Inventory Component",

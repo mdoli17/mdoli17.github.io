@@ -34,7 +34,7 @@ I wanted to move from <b>robotic detection</b> to <b>gradual, math-driven awaren
 
 ## Vision Model Overview
 
-The Vision Model Component calculates a <i>weight</b> for each visible target and updates an <b>Awareness Score</b> over time. This enables states like:
+The Vision Model Component calculates a <i>weight</i> for each visible target and updates an <b>Awareness Score</b> over time. This enables states like:
 
 - <b>Suspicious</b>: Player is barely noticed.
 - <b>Searching</b>: AI saw "something" and investigates.
@@ -42,7 +42,7 @@ The Vision Model Component calculates a <i>weight</b> for each visible target an
 
 > ##### TODO
 >
-> Show footage of player being noticed, investigated and finally searched
+> Show footage of player being noticed, investigated and finally searched from Players POV
 > {: .block-tip}
 
 ## Core Math - Target Weight Calculation
@@ -53,24 +53,38 @@ Each target's visibility is scored using:
 - <b>Angle</b>
 - <b>Occlusion</b>
 
+> ##### TODO
+> Show minor template example footages for each one
+>
+{: .block-tip}
+
 ```C++
 float UVisionModelComponent:CalculateVisibilityWeight(const AActor* Target) const {
 
 }
 ```
 
+[Full Implementation available on GitHub →](https://github.com/mdoli17/code-samples/tree/main/Unreal/Vision%20Model)
+
 The resulting weight is used to <b>increament and awareness score over time</b>. Only when awareness passes relative thresholds does the AI escalate from <i>Suspicious → Searching → Detected</i>.
 
-[Full Implementation available on GitHub →](https://github.com/mdoli17/code-samples/tree/main/Unreal/Vision%20Model)
+<div>
+    {% include video.liquid path="assets/video/fia/vision-model-scoring.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+    <div class="caption">
+        Vision Model Scoring
+    </div>
+</div>
 
 ## Smooth Cone Tracking
 
 The vision cone is aligned with the AI's head orientation rather than snapping directly the the player. This keeps perception grounded in animations and makes AI feel more lifelike.
 
-> ##### TODO
->
-> Show difference between Default UE sight, which snaps instantly, and Custom smooth cone tracking
-> {: .block-tip}
+<div>
+    {% include video.liquid path="assets/video/fia/vision-cone-diff.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+    <div class="caption">
+        Difference between <b>Default Sight</b> and <b>Custom Cone Smoothing</b>
+    </div>
+</div>
 
 ## Integration with AI Framework
 
@@ -80,6 +94,11 @@ The system ties into Unreal's AI stack:
 - AI Controller: Updates handles vision model events and notifies State Tree using State Tree Events
 - State Tree: Handles high-level transitions like <i> Neutral → Search → Hostile<i>
 - Behavior Tree: Uses blackboard values to trigger search or chase tasks.
+
+> ##### TODO
+> Show diagram of this
+>
+{: .block-tip}
 
 ## Gameplay Impact
 

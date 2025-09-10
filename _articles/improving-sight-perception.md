@@ -54,9 +54,10 @@ Each target's visibility is scored using:
 - <b>Occlusion</b>
 
 > ##### TODO
+>
 > Show minor template example footages for each one
 >
-{: .block-tip}
+> {: .block-tip}
 
 ```C++
 float UVisionModelComponent:CalculateVisibilityWeight(const AActor* Target) const {
@@ -96,9 +97,10 @@ The system ties into Unreal's AI stack:
 - Behavior Tree: Uses blackboard values to trigger search or chase tasks.
 
 > ##### TODO
+>
 > Show diagram of this
 >
-{: .block-tip}
+> {: .block-tip}
 
 ## Gameplay Impact
 

@@ -151,11 +151,10 @@ The system ties into Unreal's AI stack:
 - State Tree: Handles high-level transitions like <i> Neutral → Search → Hostile<i>
 - Behavior Tree: Uses blackboard values to trigger search or chase tasks.
 
-> ##### TODO
->
-> Show diagram of this
->
-> {: .block-tip}
+<div>
+  {% include figure.liquid path="assets/img/projects/fia/vision-model-diagram.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+  <p class="caption">Click to zoom</p>
+</div>
 
 ## Gameplay Impact
 

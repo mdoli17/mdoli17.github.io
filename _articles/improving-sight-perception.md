@@ -2,7 +2,7 @@
 title: Improving Sight Perception in Stealth Prototype
 description: Awareness Scoring, Vision Cone, State Integration
 layout: distill
-thumbnail: assets/img/1.jpg
+thumbnail: assets/img/projects/fia/vision-model-thumbnail.png
 priority: 3
 
 toc:

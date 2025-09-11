@@ -40,10 +40,9 @@ The Vision Model Component calculates a <i>weight</i> for each visible target an
 - <b>Searching</b>: AI saw "something" and investigates.
 - <b>Detected</b>: Player is fully itendified.
 
-> ##### TODO
->
-> Show footage of player being noticed, investigated and finally searched from Players POV
-> {: .block-tip}
+<div>
+    {% include video.liquid path="assets/video/fia/vision-model-pov.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+</div>
 
 ## Core Math - Target Weight Calculation
 

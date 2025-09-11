@@ -50,17 +50,72 @@ The Vision Model Component calculates a <i>weight</i> for each visible target an
 Each target's visibility is scored using:
 
 - <b>Distance</b>
+
+<div>
+    {% include video.liquid path="assets/video/fia/vision-distance-footage.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+    <div class="caption">
+        Vision Model - Distance Scoring
+    </div>
+</div>
+
+<aside>
+{% include figure.liquid path="assets/img/projects/fia/distance-falloff.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+<p class="caption">Click to zoom</p>
+</aside>
+
 - <b>Angle</b>
+
+<div>
+    {% include video.liquid path="assets/video/fia/vision-angle-footage.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+    <div class="caption">
+        Vision Model - Angle Scoring
+    </div>
+</div>
+
+<aside>
+{% include figure.liquid path="assets/img/projects/fia/angle-falloff.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+<p class="caption">Click to zoom</p>
+</aside>
+
 - <b>Occlusion</b>
 
-> ##### TODO
->
-> Show minor template example footages for each one
->
-> {: .block-tip}
+<div>
+    {% include video.liquid path="assets/video/fia/vision-occlusion-footage.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
+    <div class="caption">
+        Vision Model - Occlusion Scoring
+    </div>
+</div>
 
-```C++
+<aside>
+{% include figure.liquid path="assets/img/projects/fia/occlusion-weight.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+<p class="caption">Click to zoom</p>
+</aside>
+
+```c++
 float UVisionModelComponent:CalculateVisibilityWeight(const AActor* Target) const {
+  // Angle
+  const float x = FVector::DotProduct(fwdH, dirH); // = cos(theta)
+  const float cIn  = FMath::Cos(FMath::DegreesToRadians(AngleInnerDeg));
+  const float cOut = FMath::Cos(FMath::DegreesToRadians(AngleOuterDeg));
+
+  // Smoothstep on dot domain
+  float t = (x - cOut) / (cIn - cOut);
+  t = FMath::Clamp(t, 0.f, 1.f);
+  float angleWeight = t*t*(3.f - 2.f*t);  // cubic smoothstep
+
+  angleWeight = FMath::Pow(angleWeight, AngleExp);
+
+  // Distance
+  float DistW = 1.f;
+
+  if (DistanceMax > DistanceStart + KINDA_SMALL_NUMBER)
+  {
+      float t = (d - DistanceStart) / (DistanceMax - DistanceStart);
+      t = FMath::Clamp(t, 0.f, 1.f);
+      DistW = 1.f - t;  // full near, zero far
+  }
+
+  DistW = FMath::Pow(DistW, DistExp);
 
 }
 ```

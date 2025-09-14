@@ -4,6 +4,7 @@ description: >
   Pipeline, Bezier Splines, Mesh Generation
 layout: distill
 thumbnail: assets/img/projects/alpaca-dash/red-rock-cliffs-background.png
+tags: [Unity, Math, C#]
 priority: 1
 toc:
   - name: Map Creation Pipeline

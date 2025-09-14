@@ -4,7 +4,7 @@ description: Awareness Scoring, Vision Cone, State Integration
 layout: distill
 thumbnail: assets/img/projects/fia/vision-model-thumbnail.png
 priority: 3
-
+tags: [Unreal Engine, Math, Vectors]
 toc:
   - name: Introduction
   - name: Problem with Default Vision

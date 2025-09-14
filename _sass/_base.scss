@@ -204,6 +204,11 @@ ul.task-list input[type="checkbox"] {
   .card-body {
     padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   }
+
+  .card-tags {
+    color: var(--global-text-color-lighter);
+    font-size: small;
+  }
 }
 
 // Citation
@@ -1546,3 +1551,5 @@ figure.cover {
   text-align: center;
   margin-bottom: 2rem;
 }
+
+

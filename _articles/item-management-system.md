@@ -4,7 +4,7 @@ description: DataAssets, DataTables, Inventory Component
 layout: distill
 thumbnail: assets/img/projects/fia/item-system-thumbnail.png
 priority: 2
-
+tags: [Unreal Engine, C++, Data Structures]
 toc:
   - name: Overview
   - name: Design Goals

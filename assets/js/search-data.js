@@ -23,12 +23,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "articles-race-track-generation-in-alpaca-dash",
-          title: 'Race Track Generation in Alpaca Dash',
-          description: "Description for race track generation in alpaca dash",
-          section: "Articles",handler: () => {
-              window.location.href = "/articles/3/";
-            },},{id: "articles-improving-sight-perception-in-stealth-prototype",
+        },{id: "articles-improving-sight-perception-in-stealth-prototype",
           title: 'Improving Sight Perception in Stealth Prototype',
           description: "Awareness Scoring, Vision Cone, State Integration",
           section: "Articles",handler: () => {
@@ -43,6 +38,11 @@ ninja.data = [{
           description: "Pipeline, Bezier Splines, Mesh Generation",
           section: "Articles",handler: () => {
               window.location.href = "/articles/race-track-generation/";
+            },},{id: "articles-designing-tutorial-system-architecture-in-alpaca-dash",
+          title: 'Designing Tutorial System Architecture in Alpaca Dash',
+          description: "Description for race track generation in alpaca dash",
+          section: "Articles",handler: () => {
+              window.location.href = "/articles/tutorial-system/";
             },},{id: "projects-alpaca-dash",
           title: 'Alpaca Dash',
           description: "Thrilling alpaca racing game",

@@ -10,6 +10,6 @@ linkedin_username: matedolidze
 # x_username: # your X handle
 # youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 artstation:
-  logo: /assets/img/socials/artstation.svg
+  logo: /assets/img/socials/artstation_white.svg
   title: ArtStation
   url: https://www.artstation.com/matedolidze

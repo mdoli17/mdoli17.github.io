@@ -1450,7 +1450,7 @@ figure.cover {
 }
 
 #showcases {
-  margin-block: 3rem;
+  margin-block: 6rem;
 }
 
 #showcases > h2 {
@@ -1536,4 +1536,13 @@ figure.cover {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+#articles {
+  margin-block: 6rem;
+}
+
+#articles > h2 {
+  text-align: center;
+  margin-bottom: 2rem;
 }

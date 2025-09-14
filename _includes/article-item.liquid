@@ -18,7 +18,8 @@
         {% if article.tags %}
           <p class="card-tags">
             {% for tag in article.tags %}
-            #{{ tag }}{% if forloop.last == false %}, {% endif %}
+              #{{ tag -}}
+              {%- if forloop.last == false %}, {% endif %}
             {% endfor %}
           </p>
         {% endif %}

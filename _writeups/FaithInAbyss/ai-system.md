@@ -64,11 +64,6 @@ Data Flow
 
 The <b>EnemyAIController</b> manages how the AI perceives its surroundings using Unreal’s <b>AIPerceptionComponent</b>. Perception updates are handled in the controller’s `OnTargetPerceptionUpdated` callback. Instead of directly modifying the behavior or state, these events are converted into <b>State Tree events</b>, identified by `Gameplay Tags`. Each event also carries relative `Payload` data, providing additional context (such as stimulus strength, actor location, relative player information). These are dispatched to the State Tree, which interprets the data and determines whether to `Transition` to a new state – such as from <b>Patrol</b> to <b>Search</b>, or from <b>Search</b> to <b>Hostile</b>. Once in a new state, the Behavior Tree executes the specific logic for that state using updated Blackboard values.
 
-> ##### TODO
->
-> Show footage of actual gameplay and code exeuction which corresponds to the graph drawn above.
-> {: .block-tip }
-
 ---
 
 <br>
@@ -398,9 +393,5 @@ For instance:
   {% include video.liquid path="assets/video/fia/search-aggresive.mp4" class="img-fluid rounded z-depth-1" autoplay=true loop=true controls=true %}
 
 - In `Hostile->Combat` state, movement towards the player, attack execeution and target tracking is handled.
-  > ##### TODO
-  >
-  > Add footage for `Hostile->Combat`
-  > {: .block-tip}
 
 By having the State Tree control what state the AI is in and the Behavior Tree handle <b>how</b> that state behaves, the system remains both flexible and focused.

@@ -63,14 +63,14 @@ ninja.data = [{
           description: "Project to showcase mage abilities",
           section: "Projects",handler: () => {
               window.location.href = "/projects/MageDemo/";
-            },},{id: "showcases-alpaca-dash-showcase",
-          title: 'Alpaca Dash - Showcase',
-          description: "TODO - Instead of gameplay, add a showcase video when it&#39;s complete",
+            },},{id: "showcases-alpaca-dash",
+          title: 'Alpaca Dash',
+          description: "Alpaca Dash is an online racing game where players compete on dynamic, obstacle-filled tracks. I was responsible for core gameplay engineering, including implementing racer movement along Bezier tracks, race track and obstacle generation systems, and responsive UI and VFX to enhance player feedback. I also contributed tools and backend integrations that streamlined development across the team. My work focused on making gameplay both technically solid and fun to play.",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/alpaca-dash-showcase.html";
-            },},{id: "showcases-defi-land-showcase",
-          title: 'DeFi-Land Showcase',
-          description: "TODO - Instead of gameplay, add a showcase video when it&#39;s complete",
+            },},{id: "showcases-defi-land",
+          title: 'DeFi-Land',
+          description: "A farming-simulation project that blends casual mini-games with blockchain-based progression. My contributions centered on building core gameplay systems - from interactive farming mechanics to mini-games that tied into on-chain rewards. I worked closely with designers and artists to ensure the systems were smooth, extensible and delivered an engaging player experience. Beyond feature work, I focused on maintainable code structure to support the project&#39;s rapid growth.",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/defi-land-showcase.html";
             },},{id: "showcases-stealth-game-prototype",

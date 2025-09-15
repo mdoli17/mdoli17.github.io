@@ -75,7 +75,7 @@ ninja.data = [{
               window.location.href = "/showcases/defi-land-showcase.html";
             },},{id: "showcases-stealth-game-prototype",
           title: 'Stealth Game Prototype',
-          description: "A 2-minute overview of my custom AI system for a stealth prototype. The system integrates extended perception with layered state and behavior tree management, enabling enemies to patrol,search, and chase in response to player actions. Additional features like Safezones and a GUID-based payload event system extend Unreal&#39;s perception API, providing context-aware, modular logic to support engaging stealth gameplay.",
+          description: "A 2-minute overview of my custom AI system for a stealth prototype. The system combines extended perception with finite state machines layered over Unreal&#39;s Behavior Tree and State Tree frameworks, enabling enemies to patrol, search, and chase players in a rule-based manner. I implemented pathfinding with dynamic investigation points projected on the navmesh, ensuring enemies react believably to sound and sight stimuli. Additional features like Safezones and a GUID-based payload event system extend Unreal&#39;s perception API, providing context-aware, modular logic that layes the foundation for goal-driven behaviors.",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/stealth-prototype-ai-system.html";
             },},{id: "writeups-ai-system-overview",

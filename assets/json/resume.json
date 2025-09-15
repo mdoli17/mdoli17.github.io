@@ -1,10 +1,9 @@
 {
   "general": {
     "name": "Mate Dolidze",
-    "role": "Gameplay Engineer",
+    "role": "Gameplay Programmer",
     "image": "",
-    "email": "mate.dolidze1@gmail.com",
-    "summary": "TODO: Write small summary about me"
+    "email": "mate.dolidze1@gmail.com"
   },
 
   "projects": [
@@ -12,10 +11,12 @@
       "name": "Stealth Game Prototype",
       "summary": "First-person tealth prototype featuing AI patrols, sight and sound detection, and a custom safezone perception system built with Behavior Trees and modular C++.",
       "highlights": [
-        "Custom AI Perception System",
-        "Hybrid AI Architecture",
-        "Dynamic Enemy Behavior",
-        "Gameplay Engineering - Maybe add what gameplay systems were implemented?"
+        "Advanced AI Perception System",
+        "Custom Safezone Detection Sense",
+        "Behavior Tree & State Tree Integration",
+        "Context-Aware AI Debugging Tools",
+        "Dynamic Player Interaction System",
+        "AI Patrol, Search & Chase Behaviors"
       ]
     },
     {
@@ -26,27 +27,39 @@
   ],
   "work": [
     {
-      "name": "Kind Knight Games",
+      "name": "Kind Knight Games - Alpaca Dash",
       "position": "Lead Gameplay Programmer",
-      "project": "Alpaca Dash - Unity",
       "url": "https://kindknight.games/",
       "startDate": "2023",
       "endDate": "2025",
       "summary": "Led the implementation of core gameplay systems, collaborated with designers and artists to create engaging gameplay experiences.",
       "highlights": [
-        "Tutorial System",
-        "Mac Creation Pipeline",
+        "Spline-based Racer Movement System",
         "Dynamic Camera System",
-        "Dynamic Character Mesh Assymble System",
-        "In-Game Building & Decoration Mode",
-        "Shooting Range Mini-Game",
-        "Fishing Mini-Game"
+        "Mac Creation Pipeline",
+        "Tutorial System",
+        "Dynamic Character Mesh Assembly System",
+        "Level Management System"
       ]
     },
     {
-      "name": "AppIdea",
-      "position": "Gameplay Programming & VFX",
-      "project": "Merge Heroes - Unity",
+      "name": "Kind Knight Games - DeFi-Land",
+      "position": "Gameplay & UI Programmer",
+      "url": "https://defiland.app/",
+      "startDate": "2021",
+      "endDate": "2023",
+      "summary": "Led the implementation of core gameplay systems, collaborated with designers and artists to create engaging gameplay experiences.",
+      "highlights": [
+        "Shooting Range Mini-Game",
+        "Fishing Mini-Game",
+        "In-Game Building & Decoration Mode",
+        "UI - Authentication, Main HUD, Mini-Games, Decoration Mode",
+        "Blockchain features - Wallet Integration, Token Transactions, NFT Management, Swap, Staking, Yield Farming"
+      ]
+    },
+    {
+      "name": "AppIdea - Merge Heroes",
+      "position": "Gameplay Programmer & VFX",
       "url": "https://www.appidea.com/",
       "startDate": "2020",
       "endDate": "2021",

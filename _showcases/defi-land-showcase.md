@@ -1,6 +1,6 @@
 ---
 title: DeFi-Land
-description: | 
+description: |
   A farming-simulation project that blends casual mini-games with blockchain-based progression. <br>
   <br>
   My contributions centered on building core gameplay systems - from interactive farming mechanics to mini-games that tied into on-chain rewards. I worked closely with designers and artists to ensure the systems were smooth, extensible and delivered an engaging player experience. <br>

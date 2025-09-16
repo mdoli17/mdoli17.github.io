@@ -16,6 +16,8 @@ Alpaca Dash is a online racing game where players choose alpacas based on their 
 
 I was responseible for core gameplay engineering, implementing systems that made the racing feel smooth, reactive, and replayable.
 
+Available to play here: [Alpaca Dash Website](https://play.almightyalpacas.com/)
+
 --- 
 
 ## Highlights

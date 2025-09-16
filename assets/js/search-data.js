@@ -38,11 +38,6 @@ ninja.data = [{
           description: "Pipeline, Bezier Splines, Mesh Generation",
           section: "Articles",handler: () => {
               window.location.href = "/articles/race-track-generation/";
-            },},{id: "articles-designing-tutorial-system-architecture-in-alpaca-dash",
-          title: 'Designing Tutorial System Architecture in Alpaca Dash',
-          description: "Description for race track generation in alpaca dash",
-          section: "Articles",handler: () => {
-              window.location.href = "/articles/tutorial-system/";
             },},{id: "projects-alpaca-dash",
           title: 'Alpaca Dash',
           description: "Thrilling alpaca racing game",

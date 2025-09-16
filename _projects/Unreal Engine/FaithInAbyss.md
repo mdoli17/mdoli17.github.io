@@ -28,9 +28,11 @@ The project showcases my ability to extend existing frameworks, design systemic 
 ---
 
 ## Writeups
+
 {% include project_writeups.liquid project_slug=page.slug %}
 
 ## Articles
+
 <section id="articles">
     {% assign articles = site.articles | sort: 'priority' %}
     <div class="container">

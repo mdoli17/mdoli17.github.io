@@ -18,7 +18,7 @@ I was responseible for core gameplay engineering, implementing systems that made
 
 Available to play here: [Alpaca Dash Website](https://play.almightyalpacas.com/)
 
---- 
+---
 
 ## Highlights
 

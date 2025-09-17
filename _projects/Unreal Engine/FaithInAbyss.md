@@ -37,7 +37,7 @@ The project showcases my ability to extend existing frameworks, design systemic 
     {% assign articles = site.articles | sort: 'priority' %}
     <div class="container">
         <div class="row row-cols-1 row-cols-md-5">
-            {% for article in articles %}
+            {% for article in articles  offset:1 %}
                 {% include article-item.liquid item=article %}
             {% endfor %}
         </div>

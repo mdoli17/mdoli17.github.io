@@ -3,7 +3,7 @@ title: AI System Overview
 description: Detailed analysis of stealth mechanics and AI system
 project: faith-in-abyss
 slug: ai-system-overview
-thumbnail: assets/img/3.jpg
+thumbnail: assets/img/projects/fia/ai-system-thumbnail.png
 priority: 1
 layout: page
 permalink: /projects/faith-in-abyss/:title/

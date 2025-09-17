@@ -51,6 +51,12 @@ Available to play here: [DeFi-Land Website](https://play.defiland.app/)
 
 <br>
 
+- Collaborated with artists and designers to <b>design the flow of animations, visuals, and transitions</b>, ensuring the feature felt cohesive.
+- Worked with UI designers to <b>implement the feature's interface<b> for usability and clarity.
+- Integrated <b>backend APIs and blockchain logic</b> to support forging and fusion mechanics.
+
+<br>
+
 <h3>Fishing Mini-Game</h3>
 
 <div class="ratio-16x9">
@@ -68,6 +74,13 @@ Available to play here: [DeFi-Land Website](https://play.defiland.app/)
 
 <br>
 
+- Collaborated with designers to <b>define core gameplay logic</b> and player interactions.
+- Implemented <b>modular fish behavior puzzles</b>, enabling variety and replayability.
+- Helped designers create <b>immersive fishing environments</b> that supported gameplay clarity.
+- Worked with UI designers to <b>develop responsive fishing UI elements</b>.
+
+<br>
+
 <h3>Shooting Range Mini-Game</h3>
 
 <div class="ratio-16x9">
@@ -82,3 +95,9 @@ Available to play here: [DeFi-Land Website](https://play.defiland.app/)
         allowfullscreen>
     </iframe>
 </div>
+
+<br>
+
+- Implemented <b>dynamic, backend-connected target behavior</b> for varied challenges.
+- Collaborated with designers to create <b>engaging shooting range environments</b>.
+- Worked with UI designers to <b>build the shooting interface and feedback systems</b>

@@ -1,7 +1,7 @@
 {
   "general": {
     "name": "Mate Dolidze",
-    "role": "Gameplay Programmer",
+    "role": "Gameplay & Systems Programmer",
     "image": "",
     "email": "mate.dolidze1@gmail.com"
   },
@@ -27,8 +27,23 @@
   ],
   "work": [
     {
+      "name": "Unannounced Stealth Prototype (Contract)",
+      "position": "Gameplay / AI Programmer",
+      "startDate": "2025",
+      "endDate": "2026",
+      "summary": "Designed and implemented  core AI and gameplay systems for an unannounced stealth project, focusing on squad-level coordination, data-driven decision-making and systemic stealth mechanics.",
+      "highlights": [
+        "Squad-Based AI Framework",
+        "Data-Driven Decision & Order Pipeline",
+        "World-Level Patrol & Policy System",
+        "Systemic Heat / Cold Stealth Mechanic",
+        "Custom AI Perception Extensions",
+        "Designer-Facing AI Debug & Configuration Tools"
+      ]
+    },
+    {
       "name": "Kind Knight Games - Alpaca Dash",
-      "position": "Lead Gameplay Programmer",
+      "position": "Lead Systems Programmer",
       "url": "https://kindknight.games/",
       "startDate": "2023",
       "endDate": "2025",
@@ -79,7 +94,7 @@
       "institution": "Vertex School",
       "location": "Online",
       "url": "https://www.vertexschool.com/",
-      "area": "Game Development Program",
+      "area": "Game Development Program (Unreal Engine)",
       "startDate": "2024",
       "endDate": "2024"
     }

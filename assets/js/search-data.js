@@ -68,6 +68,11 @@ ninja.data = [{
           description: "A farming-simulation project that blends casual mini-games with blockchain-based progression. My contributions centered on building core gameplay systems - from interactive farming mechanics to mini-games that tied into on-chain rewards. I worked closely with designers and artists to ensure the systems were smooth, extensible and delivered an engaging player experience. Beyond feature work, I focused on maintainable code structure to support the project&#39;s rapid growth.",
           section: "Showcases",handler: () => {
               window.location.href = "/showcases/defi-land-showcase.html";
+            },},{id: "showcases-gameplay-reel",
+          title: 'Gameplay Reel',
+          description: "",
+          section: "Showcases",handler: () => {
+              window.location.href = "/showcases/gameplay-reel.html";
             },},{id: "showcases-stealth-game-prototype",
           title: 'Stealth Game Prototype',
           description: "A 2-minute overview of my custom AI system for a stealth prototype. The system combines extended perception with finite state machines layered over Unreal&#39;s Behavior Tree and State Tree frameworks, enabling enemies to patrol, search, and chase players in a rule-based manner. I implemented pathfinding with dynamic investigation points projected on the navmesh, ensuring enemies react believably to sound and sight stimuli. Additional features like Safezones and a GUID-based payload event system extend Unreal&#39;s perception API, providing context-aware, modular logic that layes the foundation for goal-driven behaviors.",

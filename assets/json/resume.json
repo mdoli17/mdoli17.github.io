@@ -5,30 +5,10 @@
     "image": "",
     "email": "mate.dolidze1@gmail.com"
   },
-
-  "projects": [
-    {
-      "name": "Stealth Game Prototype",
-      "summary": "First-person tealth prototype featuing AI patrols, sight and sound detection, and a custom safezone perception system built with Behavior Trees and modular C++.",
-      "highlights": [
-        "Advanced AI Perception System",
-        "Custom Safezone Detection Sense",
-        "Behavior Tree & State Tree Integration",
-        "Context-Aware AI Debugging Tools",
-        "Dynamic Player Interaction System",
-        "AI Patrol, Search & Chase Behaviors"
-      ]
-    },
-    {
-      "name": "Mage Ability Prototype",
-      "summary": "First-person mage demo showcasing a custom C++ ability system with projectile attacks, ability cooldowns, and animation-driven logic for responsive combat.",
-      "highlights": ["Custom Ability Framework", "Animation-Driven Logic", "Ability Variety", "First-Person Character"]
-    }
-  ],
   "work": [
     {
-      "name": "Unannounced Stealth Prototype (Contract)",
-      "position": "Gameplay / AI Programmer",
+      "name": "Unannounced Stealth Project (Contract)",
+      "position": "Gameplay Programmer",
       "startDate": "2025",
       "endDate": "2026",
       "summary": "Designed and implemented  core AI and gameplay systems for an unannounced stealth project, focusing on squad-level coordination, data-driven decision-making and systemic stealth mechanics.",
@@ -43,7 +23,7 @@
     },
     {
       "name": "Kind Knight Games - Alpaca Dash",
-      "position": "Lead Systems Programmer",
+      "position": "Gameplay Programmer",
       "url": "https://kindknight.games/",
       "startDate": "2023",
       "endDate": "2025",
@@ -59,7 +39,7 @@
     },
     {
       "name": "Kind Knight Games - DeFi-Land",
-      "position": "Gameplay & UI Programmer",
+      "position": "Gameplay Programmer",
       "url": "https://defiland.app/",
       "startDate": "2021",
       "endDate": "2023",
@@ -74,11 +54,30 @@
     },
     {
       "name": "AppIdea - Merge Heroes",
-      "position": "Gameplay Programmer & VFX",
+      "position": "Gameplay Programmer",
       "url": "https://www.appidea.com/",
       "startDate": "2020",
       "endDate": "2021",
       "summary": "Worked on a mobile RPG, merger-type game, implementing different character ability behaviors and creating VFX for them."
+    }
+  ],
+  "projects": [
+    {
+      "name": "First-Person AI Systems Prototype",
+      "summary": "First-person stealth prototype featuing AI patrols, sight and sound detection, and a custom safezone perception system built with Behavior Trees and modular C++.",
+      "highlights": [
+        "Advanced AI Perception System",
+        "Custom Safezone Detection Sense",
+        "Behavior Tree & State Tree Integration",
+        "Context-Aware AI Debugging Tools",
+        "Dynamic Player Interaction System",
+        "AI Patrol, Search & Chase Behaviors"
+      ]
+    },
+    {
+      "name": "Mage Ability Demo",
+      "summary": "First-person mage demo showcasing a custom C++ ability system using GAS with projectile attacks, ability cooldowns, and animation-driven logic for responsive combat.",
+      "highlights": ["Custom Ability Framework", "Animation-Driven Logic", "Ability Variety", "First-Person Character"]
     }
   ],
   "education": [
@@ -86,17 +85,13 @@
       "institution": "Free university of Tbilisi",
       "location": "Tbilisi, Georgia",
       "url": "https://www.freeuni.edu.ge/",
-      "area": "Mathematics & Computer Science (MACS)",
-      "startDate": "2017",
-      "endDate": "2021"
+      "area": "Mathematics & Computer Science (MACS)"
     },
     {
       "institution": "Vertex School",
       "location": "Online",
       "url": "https://www.vertexschool.com/",
-      "area": "Game Development Program (Unreal Engine)",
-      "startDate": "2024",
-      "endDate": "2024"
+      "area": "Game Development Program (Unreal Engine)"
     }
   ],
   "skills": [
